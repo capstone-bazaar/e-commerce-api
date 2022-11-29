@@ -1,11 +1,9 @@
-### Fixed issues are:
+**This pull request makes the following changes:**
 
--
+- Fixes issue:
 
-### Related pull requests are:
+- Related pull requests are:
 
--
-
-### Proposed Changes
+**Proposed Changes:**
 
 -
