@@ -1,2 +1,8 @@
+#node_modules
 /node_modules
+/Gateway/node_modules
+
+
+#.env files
+/Gateway/.env.development
 
