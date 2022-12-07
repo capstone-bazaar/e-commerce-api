@@ -1,5 +1,5 @@
-import { ApolloServer } from "apollo-server";
-import { ApolloGateway } from "@apollo/gateway";
+const { ApolloServer } = require("apollo-server");
+const { ApolloGateway } = require("@apollo/gateway");
 require("dotenv").config();
 
 const gateway = new ApolloGateway({
@@ -12,6 +12,6 @@ const gateway = new ApolloGateway({
 
 const server = new ApolloServer({ gateway });
 
-server.listen({ port: 4000 }).then((url) => {
+server.listen({ port: 4000 }).then((url: string) => {
   console.log(`GATEWAY ready at url: ${url}`);
 });
