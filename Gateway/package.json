@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start:dev": "NODE_ENV=development env-cmd -f .env.development nodemon index.ts",
-    "start:production": "NODE_ENV=production env-cmd -f .env.production nodemon index.ts"
+    "start:dev": "NODE_ENV=development env-cmd -f .env.development nodemon --watch './**/*.ts' --exec 'ts-node' index.ts",
+    "start:production": "NODE_ENV=production env-cmd -f .env.productionnodemon --watch './**/*.ts' --exec 'ts-node' index.ts"
   },
   "keywords": [],
   "author": "",
