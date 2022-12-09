@@ -18,9 +18,9 @@ const startServer = async () => {
     gateway = new ApolloGateway({
       supergraphSdl: new IntrospectAndCompose({
         subgraphs: [
-          { name: "userService", url: process.env.DEV_USER_SERVICE_URL },
-          { name: "paymentService", url: process.env.DEV_PAYMENT_SERVICE_URL },
-          { name: "productService", url: process.env.DEV_PRODUCT_SERVICE_URL },
+          { name: "userService", url: process.env.USER_SERVICE_URL },
+          { name: "paymentService", url: process.env.PAYMENT_SERVICE_URL },
+          { name: "productService", url: process.env.PRODUCT_SERVICE_URL },
         ],
       }),
     });
