@@ -1,9 +1,10 @@
 #node_modules
 /node_modules
 /Gateway/node_modules
-
+/PaymentService/node_modules
+/ProductService/node_modules
+/UserService/node_modules
 
 #.env files
 /Gateway/.env.development
 /Gateway/.env.production
-
