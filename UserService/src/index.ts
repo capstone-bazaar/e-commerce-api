@@ -1,12 +1,13 @@
 import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import gql from "graphql-tag";
-import { resolvers } from "./graphql/resolver";
+import { resolvers } from "./graphql/resolvers/user";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { readFileSync } from "fs";
 const mongoose = require("mongoose");
+
 const typeDefs = gql(
-  readFileSync("src/graphql/types/user.graphql").toString("utf-8")
+  readFileSync(`${__dirname}/graphql/types/user.graphql`).toString("utf-8")
 );
 
 import { DB_URI } from "../database-config";
@@ -15,10 +16,11 @@ require("dotenv").config();
 
 const createDatabaseConnection = async () => {
   try {
+    mongoose.set("strictQuery", false);
     await mongoose.connect(DB_URI);
-    console.log("User Service: Connected to DB");
+    console.log("✅ User Service: Connected to DB");
   } catch (error) {
-    console.log(error);
+    console.log("⛔", error);
   }
 };
 
@@ -33,7 +35,7 @@ const startUserServiceServer = async () => {
     listen: { port: 4001 },
   });
 
-  console.log(`User Service: Server ready at ${url}`);
+  console.log(`🚀 User Service: Server ready at ${url}`);
 };
 
 startUserServiceServer();
