@@ -14,8 +14,6 @@ const resolvers = {
       ctx: any
     ): Promise<string> {
       return await UserController.login({ email, password });
-
-      return "ertna";
     },
     async register(
       parent: any,

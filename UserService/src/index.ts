@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import gql from "graphql-tag";
@@ -11,8 +12,6 @@ const typeDefs = gql(
 );
 
 import { DB_URI } from "../database-config";
-
-require("dotenv").config();
 
 const createDatabaseConnection = async () => {
   try {

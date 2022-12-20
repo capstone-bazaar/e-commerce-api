@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "compile": "tsc",
-    "start:dev": "NODE_ENV=development env-cmd -f .env.development nodemon --watch './**/*.ts' --exec 'ts-node' ./src/index.ts",
+    "start:dev": "cross-env NODE_ENV=development -f .env.development nodemon --watch './**/*.ts' --exec 'ts-node' ./src/index.ts",
     "start:production": "npm run compile && NODE_ENV=production env-cmd -f .env.production nodemon --watch './**/*.ts' --exec 'ts-node' ./dist/index.js"
   },
   "keywords": [],
@@ -22,6 +22,7 @@
     "express": "^4.18.2",
     "express-jwt": "^7.7.7",
     "graphql": "^16.6.0",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1",
     "wait-on": "^7.0.1"

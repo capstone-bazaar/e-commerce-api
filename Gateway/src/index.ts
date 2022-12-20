@@ -10,7 +10,7 @@ import express from "express";
 import { json } from "body-parser";
 import cors from "cors";
 import { ENVIRONMENTS } from "./constants";
-import { expressjwt } from "express-jwt";
+import { verifyToken } from "./helpers";
 import waitOn from "wait-on";
 require("dotenv").config();
 
@@ -69,17 +69,18 @@ const startServer = async () => {
     json(),
     expressMiddleware(server, {
       context: async ({ req }: { req: any }) => {
-        const user = req.user || null;
+        interface JwtPayload {
+          id: string;
+          iat: number;
+          exp: number;
+        }
+        const verifiedToken = verifyToken(
+          req.headers.authorization
+        ) as JwtPayload;
+
+        const user = verifiedToken.id || null;
         return { user };
       },
-    })
-  );
-
-  app.use(
-    expressjwt({
-      secret: jwtSecret,
-      algorithms: ["HS256"],
-      credentialsRequired: false,
     })
   );
 

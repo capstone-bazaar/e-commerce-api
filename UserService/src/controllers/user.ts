@@ -54,10 +54,7 @@ const login = async ({
     throw new Error("Password and E-mail doesn't match!");
   }
 
-  const jwtSecretKey = process.env.JWT_SECRET as string;
-
-  return jwt.sign({ id: user._id }, `${jwtSecretKey}`, {
-    algorithm: "HS256",
+  return jwt.sign({ id: user._id }, `${process.env.JWT_SECRET}`, {
     expiresIn: "15d",
   });
 };
