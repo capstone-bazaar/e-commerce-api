@@ -11,11 +11,13 @@ import { json } from "body-parser";
 import cors from "cors";
 import { ENVIRONMENTS } from "./constants";
 import { expressjwt } from "express-jwt";
+import waitOn from "wait-on";
 require("dotenv").config();
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
   const jwtSecret = process.env.JWT_SECRET as string;
+
   let gateway;
 
   if (environment === ENVIRONMENTS.DEVELOPMENT) {
@@ -86,4 +88,17 @@ const startServer = async () => {
   });
 };
 
-startServer();
+const startGateWayWithAllServices = () => {
+  const waitOnOptions = {
+    resources: ["tcp:4001", "tcp:4002"],
+  };
+  waitOn(waitOnOptions)
+    .then(() => {
+      startServer();
+    })
+    .catch((err) => {
+      console.error("ERR:", err);
+    });
+};
+
+startGateWayWithAllServices();
