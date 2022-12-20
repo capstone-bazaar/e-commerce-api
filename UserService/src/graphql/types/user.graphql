@@ -1,0 +1,33 @@
+extend schema
+  @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key"])
+
+type Query {
+  me: User
+}
+
+type Mutation {
+  addUser(fields: UserInput): User
+  updateUser(fields: UserInput): User
+}
+
+type User @key(fields: "id") {
+  id: ID
+  fullName: String
+  phone: String
+  avatarURL: String
+  password: String
+  email: String
+  address: String
+  createdAt: String
+  updatedAt: String
+}
+
+input UserInput {
+  id: ID
+  fullName: String
+  phone: String
+  avatarURL: String
+  password: String
+  email: String
+  address: String
+}
