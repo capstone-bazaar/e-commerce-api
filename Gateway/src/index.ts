@@ -1,17 +1,21 @@
 import { getOriginsAccordingToEnvironment } from "./helpers";
-import { ApolloGateway, IntrospectAndCompose } from "@apollo/gateway";
+import {
+  ApolloGateway,
+  IntrospectAndCompose,
+  RemoteGraphQLDataSource,
+} from "@apollo/gateway";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express from "express";
-import http from "http";
 import { json } from "body-parser";
 import cors from "cors";
 import { ENVIRONMENTS } from "./constants";
+import { expressjwt } from "express-jwt";
 require("dotenv").config();
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
+  const jwtSecret = process.env.JWT_SECRET as string;
   let gateway;
 
   if (environment === ENVIRONMENTS.DEVELOPMENT) {
@@ -23,6 +27,23 @@ const startServer = async () => {
           { name: "productService", url: process.env.PRODUCT_SERVICE_URL },
         ],
       }),
+      buildService({ name, url }) {
+        return new RemoteGraphQLDataSource({
+          url,
+          willSendRequest({
+            request,
+            context,
+          }: {
+            request: any;
+            context: any;
+          }) {
+            request.http.headers.set(
+              "user",
+              context.user ? JSON.stringify(context.user) : null
+            );
+          },
+        });
+      },
     });
   } else {
     gateway = new ApolloGateway();
@@ -31,11 +52,9 @@ const startServer = async () => {
   }
 
   const app = express();
-  const httpServer = http.createServer(app);
 
   const server = new ApolloServer({
     gateway,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
   await server.start();
@@ -47,14 +66,24 @@ const startServer = async () => {
     }),
     json(),
     expressMiddleware(server, {
-      context: async ({ req }: { req: any }) => ({ token: req.headers.token }),
+      context: async ({ req }: { req: any }) => {
+        const user = req.user || null;
+        return { user };
+      },
     })
   );
 
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port: 4000 }, resolve)
+  app.use(
+    expressjwt({
+      secret: jwtSecret,
+      algorithms: ["HS256"],
+      credentialsRequired: false,
+    })
   );
-  console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+
+  app.listen({ port: 4000 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  });
 };
 
 startServer();

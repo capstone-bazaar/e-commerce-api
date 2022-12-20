@@ -8,6 +8,14 @@ type Query {
 type Mutation {
   addUser(fields: UserInput): User
   updateUser(fields: UserInput): User
+  login(email: String, password: String): String
+  register(
+    fullName: String
+    phone: String
+    avatarURL: String
+    password: String
+    email: String
+  ): User
 }
 
 type User @key(fields: "id") {

@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import UserDataAccess from "../data-access/user";
 
 interface UserType {
@@ -6,7 +7,7 @@ interface UserType {
   avatarURL?: string;
   password: string;
   email: string;
-  address: string;
+  address?: string;
 }
 
 const createUser = async ({
@@ -17,14 +18,30 @@ const createUser = async ({
   email,
   address,
 }: UserType) => {
+  const user = await findUser({ email });
+
+  if (user) {
+    throw new Error("This user already exists!");
+  }
+
+  const hash = await bcrypt.hash(password, 10);
+
   return await UserDataAccess.createUser({
     fullName,
     phone,
     avatarURL,
-    password,
+    password: hash,
     email,
     address,
   });
 };
 
-export default { createUser };
+const findUserById = async ({ id }: { id: string }) => {
+  return await UserDataAccess.findUserById({ id });
+};
+
+const findUser = async ({ email }: { email: string }) => {
+  return await UserDataAccess.findUser({ email });
+};
+
+export default { createUser, findUserById, findUser };

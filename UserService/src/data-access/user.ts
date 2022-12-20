@@ -1,12 +1,12 @@
 import UserModel from "../db/user";
 
-interface UserType {
+export interface UserType {
   fullName: string;
   phone: string;
   avatarURL?: string;
   password: string;
   email: string;
-  address: string;
+  address?: string;
 }
 
 const createUser = ({
@@ -28,4 +28,12 @@ const createUser = ({
   return user.save();
 };
 
-export default { createUser };
+const findUserById = async ({ id }: { id: string }) => {
+  return await UserModel.findById(id);
+};
+
+const findUser = async ({ email }: { email: string }) => {
+  return await UserModel.findOne({ email });
+};
+
+export default { createUser, findUserById, findUser };
