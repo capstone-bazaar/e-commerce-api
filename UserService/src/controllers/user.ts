@@ -59,4 +59,8 @@ const login = async ({
   });
 };
 
-export default { createUser, login };
+const findUserById = async ({ id }: { id: string }) => {
+  return await UserService.findUserById({ id });
+};
+
+export default { createUser, login, findUserById };

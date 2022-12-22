@@ -3,22 +3,18 @@ import { UserType } from "../../data-access/user";
 
 const resolvers = {
   Query: {
-    me() {
-      return;
+    async me(_: any, __: any, ctx: any) {
+      return await UserController.findUserById({ id: ctx.user });
     },
   },
   Mutation: {
-    async login(
-      parent: any,
-      { email, password }: UserType,
-      ctx: any
-    ): Promise<string> {
+    async login(_: any, { email, password }: UserType, ___: any) {
       return await UserController.login({ email, password });
     },
     async register(
-      parent: any,
+      _: any,
       { email, password, phone, fullName }: UserType,
-      ctx: any
+      ___: any
     ) {
       return await UserController.createUser({
         email,
@@ -29,7 +25,9 @@ const resolvers = {
     },
   },
   User: {
-    __resolveReference() {},
+    async __resolveReference(user: any) {
+      return await UserController.findUserById({ id: user.id });
+    },
   },
 };
 
