@@ -16,7 +16,6 @@ require("dotenv").config();
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
-  const jwtSecret = process.env.JWT_SECRET as string;
 
   let gateway;
 
@@ -41,7 +40,9 @@ const startServer = async () => {
           }) {
             request.http.headers.set(
               "user",
-              context.user ? JSON.stringify(context.user) : null
+              context.id && context.fullName && context.email && context.isAuth
+                ? JSON.stringify(context)
+                : null
             );
           },
         });
@@ -78,8 +79,8 @@ const startServer = async () => {
           req.headers.authorization
         ) as JwtPayload;
 
-        const user = verifiedToken.id || null;
-        return { user };
+        const user = verifiedToken || null;
+        return user;
       },
     })
   );

@@ -33,7 +33,8 @@ const startUserServiceServer = async () => {
   const { url } = await startStandaloneServer(server, {
     context: async ({ req }: { req: any }) => {
       const user = req.headers.user ? JSON.parse(req.headers.user) : null;
-      return { user };
+
+      return user;
     },
     listen: { port: 4001 },
   });

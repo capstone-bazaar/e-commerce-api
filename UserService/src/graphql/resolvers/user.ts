@@ -4,7 +4,10 @@ import { UserType } from "../../data-access/user";
 const resolvers = {
   Query: {
     async me(_: any, __: any, ctx: any) {
-      return await UserController.findUserById({ id: ctx.user });
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      return await UserController.findUserById({ id: ctx.id });
     },
   },
   Mutation: {

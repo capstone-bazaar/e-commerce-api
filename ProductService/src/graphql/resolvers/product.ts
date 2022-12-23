@@ -27,7 +27,7 @@ const resolvers = {
     id(parent: any, args: any, ctx: any) {
       return parent;
     },
-    async purchasedProducts() {
+    async purchasedProducts(parent: any, args: any, ctx: any) {
       return;
     },
   },

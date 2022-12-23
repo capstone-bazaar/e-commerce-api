@@ -54,9 +54,13 @@ const login = async ({
     throw new Error("Password and E-mail doesn't match!");
   }
 
-  return jwt.sign({ id: user._id }, `${process.env.JWT_SECRET}`, {
-    expiresIn: "15d",
-  });
+  return jwt.sign(
+    { id: user._id, fullName: user.fullName, email: user.email, isAuth: true },
+    `${process.env.JWT_SECRET}`,
+    {
+      expiresIn: "15d",
+    }
+  );
 };
 
 const findUserById = async ({ id }: { id: string }) => {
