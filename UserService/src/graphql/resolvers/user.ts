@@ -1,5 +1,5 @@
 import UserController from "../../controllers/user";
-import { UserType } from "../../data-access/user";
+import { IUser } from "../../types";
 
 const resolvers = {
   Query: {
@@ -11,12 +11,12 @@ const resolvers = {
     },
   },
   Mutation: {
-    async login(_: any, { email, password }: UserType, ___: any) {
+    async login(_: any, { email, password }: IUser, ___: any) {
       return await UserController.login({ email, password });
     },
     async register(
       _: any,
-      { email, password, phone, fullName }: UserType,
+      { email, password, phone, fullName }: IUser,
       ___: any
     ) {
       return await UserController.createUser({

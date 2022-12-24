@@ -1,15 +1,6 @@
 import bcrypt from "bcrypt";
 import UserDataAccess from "../data-access/user";
-
-interface UserType {
-  fullName: string;
-  phone: string;
-  avatarURL?: string;
-  password: string;
-  email: string;
-  address?: string;
-}
-
+import { IUser } from "../types";
 const createUser = async ({
   fullName,
   phone,
@@ -17,7 +8,7 @@ const createUser = async ({
   password,
   email,
   address,
-}: UserType) => {
+}: IUser) => {
   const user = await findUser({ email });
 
   if (user) {

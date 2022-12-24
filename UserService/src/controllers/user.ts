@@ -1,16 +1,8 @@
 import UserService from "../services/user";
 import bcrypt from "bcrypt";
 import { UserSchemaType } from "../db/user";
-
 import jwt from "jsonwebtoken";
-interface IUserType {
-  fullName: string;
-  phone: string;
-  avatarURL?: string;
-  password: string;
-  email: string;
-  address?: string;
-}
+import { IUser } from "../types";
 
 const createUser = async ({
   fullName,
@@ -19,7 +11,7 @@ const createUser = async ({
   password,
   email,
   address,
-}: IUserType) => {
+}: IUser) => {
   return await UserService.createUser({
     fullName,
     phone,

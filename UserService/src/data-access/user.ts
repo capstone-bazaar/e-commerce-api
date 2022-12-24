@@ -1,13 +1,5 @@
 import UserModel from "../db/user";
-
-export interface UserType {
-  fullName: string;
-  phone: string;
-  avatarURL?: string;
-  password: string;
-  email: string;
-  address?: string;
-}
+import { IUser } from "../types";
 
 const createUser = ({
   fullName,
@@ -16,7 +8,7 @@ const createUser = ({
   password,
   email,
   address,
-}: UserType) => {
+}: IUser) => {
   const user = new UserModel({
     fullName,
     phone,
