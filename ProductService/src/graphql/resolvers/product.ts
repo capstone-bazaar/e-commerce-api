@@ -2,7 +2,9 @@ import ProductController from "../../controllers/product";
 
 const resolvers = {
   Query: {
-    product(parent: any) {},
+    product() {
+      return;
+    },
   },
   Mutation: {
     async addProduct(parent: any, args: any, contextValue: any, info: any) {
@@ -22,11 +24,11 @@ const resolvers = {
 
   Product: {
     __resolveReference() {},
+    seller(product: any) {
+      return { id: product.seller };
+    },
   },
   User: {
-    id(parent: any, args: any, ctx: any) {
-      return parent;
-    },
     async purchasedProducts(parent: any, args: any, ctx: any) {
       return;
     },
