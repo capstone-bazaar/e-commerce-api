@@ -1,4 +1,4 @@
-import ProductModel from "../db/product";
+import {CommentModel, ProductModel} from "../db/product";
 
 interface ProductType {
   price: number;
@@ -9,7 +9,23 @@ interface ProductType {
   imageUrl: string;
   comments: string;
 }
-
+interface CommentType{
+  userID:string;
+  comment:string;
+  rate:number;
+}
+const createComment = ({
+  userID,
+  comment,
+  rate,
+}:CommentType)=>{
+  const comments= new CommentModel({
+    userID,
+    comment,
+    rate,
+  });
+  return comments.save();
+}
 const createProduct = ({
   price,
   currency,
@@ -31,4 +47,4 @@ const createProduct = ({
   return product.save();
 };
 
-export default { createProduct };
+export default { createProduct , createComment};

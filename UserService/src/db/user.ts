@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model, connect } = mongoose;
+const { Schema, model} = mongoose;
 interface UserSchemaType {
   fullName: String;
   phone: String;
@@ -11,7 +11,7 @@ interface UserSchemaType {
 }
 const userSchema = new Schema<UserSchemaType>(
   {
-    fullName: String, // String is shorthand for {type: String}
+    fullName: String,
     phone: String,
     body: String,
     avatarURL: String,

@@ -1,5 +1,6 @@
-import { Schema } from "mongoose";
+
 import ProductServices from "../services/product";
+import CommentServices  from "../services/product";
 
 interface ProductType {
   price: number;
@@ -10,7 +11,22 @@ interface ProductType {
   imageUrl: string;
   comments: string;
 }
-
+interface CommentType{
+  userID:string;
+  comment:string;
+  rate:number;
+}
+const createComment = async ({
+  userID,
+  comment,
+  rate,
+}:CommentType)=>{
+  return await CommentServices.createComment({
+    userID,
+    comment,
+    rate,
+  });
+};
 const createProduct = async ({
   price,
   currency,
@@ -31,4 +47,4 @@ const createProduct = async ({
   });
 };
 
-export default { createProduct };
+export default { createProduct ,createComment};
