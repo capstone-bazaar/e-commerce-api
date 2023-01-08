@@ -14,7 +14,6 @@ const welcomeMailData = ({
     template: MAIL_TEMPLATES.WELCOME,
     "h:X-Mailgun-Variables": JSON.stringify({
       name,
-      support: "Bazaar Team",
     }),
   };
 };
