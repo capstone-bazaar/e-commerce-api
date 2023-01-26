@@ -1,5 +1,4 @@
 import ProductDataAccess from "../data-access/product";
-import CommentDataAccess from "../data-access/product";
 
 interface ProductType {
   price: number;
@@ -10,22 +9,7 @@ interface ProductType {
   imageUrl: string;
   comments: string;
 }
-interface CommentType{
-  userID:string;
-  comment:string;
-  rate:number;
-}
-const createComment= async ({
-  userID,
-  comment,
-  rate,
-}:CommentType)=>{
-  return await CommentDataAccess.createComment({
-    userID,
-    comment,
-    rate,
-  });
-};
+
 const createProduct = async ({
   price,
   currency,
@@ -46,4 +30,4 @@ const createProduct = async ({
   });
 };
 
-export default { createProduct ,createComment};
+export default { createProduct };

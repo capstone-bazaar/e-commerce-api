@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const { Schema, model} = mongoose;
+const { Schema, model } = mongoose;
 import UserModel from "../../../UserService/src/db/user";
 interface ProductSchemaType {
   price: number;
@@ -10,33 +10,35 @@ interface ProductSchemaType {
   imageUrl: string;
   comments: string;
 }
-interface CommentSchemaType{
-  userID:string;
-  comment:string;
-  rate:number;
+interface CommentSchemaType {
+  userID: string;
+  comment: string;
+  rate: number;
 }
 const ProductSchema = new Schema<ProductSchemaType>(
   {
     price: Number,
     currency: String,
     stockCount: Number,
-    seller:[
+    seller: [
       {
-        type:Schema.Types.ObjectId,
-        ref:UserModel
-      }
+        type: Schema.Types.ObjectId,
+        ref: UserModel,
+      },
     ],
-    orderedBy:[
+    orderedBy: [
       {
-        type:Schema.Types.ObjectId,
-        ref:UserModel
-      }
+        type: Schema.Types.ObjectId,
+        ref: UserModel,
+      },
     ],
     imageUrl: String,
-    comments: [{
-      type:Schema.Types.ObjectId,
-      ref:"CommentModel"
-    }],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "CommentModel",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -44,18 +46,18 @@ const ProductSchema = new Schema<ProductSchemaType>(
 );
 const CommentSchema = new Schema<CommentSchemaType>(
   {
-    userID:[{
-      type:Schema.Types.ObjectId,
-      ref:UserModel
-    }],
-    comment:String,
-    rate:Number
+    userID: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: UserModel,
+      },
+    ],
+    comment: String,
+    rate: Number,
   },
   {
-    timestamps:true,
+    timestamps: true,
   }
-)
+);
 export const ProductModel = model<ProductSchemaType>("Product", ProductSchema);
-export const CommentModel =model<CommentSchemaType>("Comment",CommentSchema);
-
-
+export const CommentModel = model<CommentSchemaType>("Comment", CommentSchema);

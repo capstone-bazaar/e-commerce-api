@@ -5,3 +5,6 @@ node_modules
 #.env files
 .env.development
 .env.production
+
+#editor files
+.vscode
