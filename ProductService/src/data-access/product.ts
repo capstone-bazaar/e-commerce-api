@@ -1,12 +1,15 @@
 import { ProductModel } from "../db/product";
+import { Types } from "mongoose";
+
+const ObjectId = Types.ObjectId;
 
 interface ProductType {
   price: number;
   currency: string;
   stockCount: number;
   seller: string;
-  orderedBy: string;
-  imageUrl: string;
+  orderedBy?: string;
+  imageURL: string;
   comments: string;
 }
 
@@ -15,17 +18,15 @@ const createProduct = ({
   currency,
   stockCount,
   seller,
-  orderedBy,
-  imageUrl,
+  imageURL,
   comments,
 }: ProductType) => {
   const product = new ProductModel({
     price,
     currency,
     stockCount,
-    seller,
-    orderedBy,
-    imageUrl,
+    seller: new ObjectId(seller),
+    imageURL,
     comments,
   });
   return product.save();

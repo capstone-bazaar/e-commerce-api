@@ -5,8 +5,8 @@ interface ProductType {
   currency: string;
   stockCount: number;
   seller: string;
-  orderedBy: string;
-  imageUrl: string;
+  orderedBy?: string;
+  imageURL: string;
   comments: string;
 }
 const createProduct = async ({
@@ -14,8 +14,7 @@ const createProduct = async ({
   currency,
   stockCount,
   seller,
-  orderedBy,
-  imageUrl,
+  imageURL,
   comments,
 }: ProductType) => {
   return await ProductServices.createProduct({
@@ -23,8 +22,7 @@ const createProduct = async ({
     currency,
     stockCount,
     seller,
-    orderedBy,
-    imageUrl,
+    imageURL,
     comments,
   });
 };
