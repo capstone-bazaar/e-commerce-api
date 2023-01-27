@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import gql from "graphql-tag";
@@ -11,8 +12,6 @@ const typeDefs = gql(
 );
 
 import { DB_URI } from "../database-config";
-
-require("dotenv").config();
 
 const createDatabaseConnection = async () => {
   try {
@@ -32,6 +31,11 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   const { url } = await startStandaloneServer(server, {
+    context: async ({ req }: { req: any }) => {
+      const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+
+      return user;
+    },
     listen: { port: 4001 },
   });
 

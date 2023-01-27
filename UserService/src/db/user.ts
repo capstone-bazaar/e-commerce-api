@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-const { Schema, model} = mongoose;
-interface UserSchemaType {
+const { Schema, model } = mongoose;
+export interface UserSchemaType {
   fullName: String;
   phone: String;
   body: String;

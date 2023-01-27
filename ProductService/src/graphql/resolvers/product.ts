@@ -24,6 +24,14 @@ const resolvers = {
 
   Product: {
     __resolveReference() {},
+    seller(product: any) {
+      return { id: product.seller };
+    },
+  },
+  User: {
+    async purchasedProducts(parent: any, args: any, ctx: any) {
+      return;
+    },
   },
 };
 

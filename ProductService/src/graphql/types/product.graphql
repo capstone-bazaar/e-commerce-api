@@ -1,5 +1,8 @@
 extend schema
-  @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key"])
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.0"
+    import: ["@key", "@external"]
+  )
 
 type Query {
   allProducts: [Product]
@@ -23,8 +26,7 @@ type Product {
   price: Int
   currency: String
   stockCount: Int
-  seller: ID
-  orderedBy: [ID]
+  seller: User
   imageURL: String
   comments: [Comment]
   createdAt: String
@@ -37,4 +39,9 @@ input ProductInput {
   stockCount: Int
   seller: ID
   imageURL: String
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external
+  purchasedProducts: [Product]
 }

@@ -1,17 +1,22 @@
 import { getOriginsAccordingToEnvironment } from "./helpers";
-import { ApolloGateway, IntrospectAndCompose } from "@apollo/gateway";
+import {
+  ApolloGateway,
+  IntrospectAndCompose,
+  RemoteGraphQLDataSource,
+} from "@apollo/gateway";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import express from "express";
-import http from "http";
 import { json } from "body-parser";
 import cors from "cors";
 import { ENVIRONMENTS } from "./constants";
+import { verifyToken } from "./helpers";
+import waitOn from "wait-on";
 require("dotenv").config();
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
+
   let gateway;
 
   if (environment === ENVIRONMENTS.DEVELOPMENT) {
@@ -23,6 +28,25 @@ const startServer = async () => {
           { name: "productService", url: process.env.PRODUCT_SERVICE_URL },
         ],
       }),
+      buildService({ name, url }) {
+        return new RemoteGraphQLDataSource({
+          url,
+          willSendRequest({
+            request,
+            context,
+          }: {
+            request: any;
+            context: any;
+          }) {
+            request.http.headers.set(
+              "user",
+              context.id && context.fullName && context.email && context.isAuth
+                ? JSON.stringify(context)
+                : null
+            );
+          },
+        });
+      },
     });
   } else {
     gateway = new ApolloGateway();
@@ -31,11 +55,9 @@ const startServer = async () => {
   }
 
   const app = express();
-  const httpServer = http.createServer(app);
 
   const server = new ApolloServer({
     gateway,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
 
   await server.start();
@@ -47,14 +69,38 @@ const startServer = async () => {
     }),
     json(),
     expressMiddleware(server, {
-      context: async ({ req }: { req: any }) => ({ token: req.headers.token }),
+      context: async ({ req }: { req: any }) => {
+        interface JwtPayload {
+          id: string;
+          iat: number;
+          exp: number;
+        }
+        const verifiedToken = verifyToken(
+          req.headers.authorization
+        ) as JwtPayload;
+
+        const user = verifiedToken || null;
+        return user;
+      },
     })
   );
 
-  await new Promise<void>((resolve) =>
-    httpServer.listen({ port: 4000 }, resolve)
-  );
-  console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  app.listen({ port: 4000 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4000/graphql`);
+  });
 };
 
-startServer();
+const startGateWayWithAllServices = () => {
+  const waitOnOptions = {
+    resources: ["tcp:4001", "tcp:4002"],
+  };
+  waitOn(waitOnOptions)
+    .then(() => {
+      startServer();
+    })
+    .catch((err) => {
+      console.error("ERR:", err);
+    });
+};
+
+startGateWayWithAllServices();
