@@ -58,5 +58,92 @@ const login = async ({
 const findUserById = async ({ id }: { id: string }) => {
   return await UserService.findUserById({ id });
 };
-
-export default { createUser, login, findUserById };
+const updateUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserService.updateUserById({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+const deleteUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserService.deleteUserById({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+const findAllUsers = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserService.findAllUsers({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+export default {
+  createUser,
+  login,
+  findUserById,
+  updateUserById,
+  deleteUserById,
+  findAllUsers,
+};

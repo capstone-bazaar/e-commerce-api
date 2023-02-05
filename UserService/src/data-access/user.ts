@@ -27,5 +27,92 @@ const findUserById = async ({ id }: { id: string }) => {
 const findUser = async ({ email }: { email: string }) => {
   return await UserModel.findOne({ email });
 };
-
-export default { createUser, findUserById, findUser };
+const updateUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserModel.updateOne({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+const deleteUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserModel.deleteOne({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+const findAllUsers = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserModel.find({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+export default {
+  createUser,
+  findUserById,
+  findUser,
+  updateUserById,
+  deleteUserById,
+  findAllUsers,
+};
