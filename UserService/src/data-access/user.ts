@@ -54,59 +54,13 @@ const updateUserById = async ({
     address,
   });
 };
-const deleteUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
+const deleteUserById = async ({ id }: { id: string }) => {
   return await UserModel.deleteOne({
-    id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
+    _id: id,
   });
 };
-const findAllUsers = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
-  return await UserModel.find({
-    id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
-  });
+const findAllUsers = async () => {
+  return await UserModel.find();
 };
 export default {
   createUser,

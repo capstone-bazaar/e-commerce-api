@@ -9,6 +9,12 @@ const resolvers = {
       }
       return await UserController.findUserById({ id: ctx.id });
     },
+    async findAllUsers(_: any, __: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      return await UserController.findAllUsers();
+    },
   },
   Mutation: {
     async login(_: any, { email, password }: IUser, ___: any) {
@@ -24,6 +30,48 @@ const resolvers = {
         password,
         phone,
         fullName,
+      });
+    },
+    async updateUserById(
+      {
+        id,
+        fullName,
+        phone,
+        avatarURL,
+        password,
+        email,
+        address,
+      }: {
+        id: string;
+        fullName: string;
+        phone: string;
+        avatarURL: string;
+        password: string;
+        email: string;
+        address: string;
+      },
+      __: any,
+      ctx: any
+    ) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      return await UserController.updateUserById({
+        id,
+        fullName,
+        phone,
+        avatarURL,
+        password,
+        email,
+        address,
+      });
+    },
+    async deleteUserById({ id }: { id: string }, __: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      return await UserController.deleteUserById({
+        id,
       });
     },
   },

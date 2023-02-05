@@ -45,7 +45,6 @@ const login = async ({
   if (!isPasswordsMatched) {
     throw new Error("Password and E-mail doesn't match!");
   }
-
   return jwt.sign(
     { id: user._id, fullName: user.fullName, email: user.email, isAuth: true },
     `${process.env.JWT_SECRET}`,
@@ -85,59 +84,13 @@ const updateUserById = async ({
     address,
   });
 };
-const deleteUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
+const deleteUserById = async ({ id }: { id: string }) => {
   return await UserService.deleteUserById({
     id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
   });
 };
-const findAllUsers = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
-  return await UserService.findAllUsers({
-    id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
-  });
+const findAllUsers = async () => {
+  return await UserService.findAllUsers();
 };
 export default {
   createUser,

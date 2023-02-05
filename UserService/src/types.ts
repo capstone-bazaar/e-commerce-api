@@ -1,4 +1,5 @@
 interface IUser {
+  id?: string;
   fullName: string;
   phone: string;
   avatarURL?: string;

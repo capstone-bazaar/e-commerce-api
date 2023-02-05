@@ -3,11 +3,13 @@ extend schema
 
 type Query {
   me: User
+  findAllUsers: [User]
 }
 
 type Mutation {
   addUser(fields: UserInput): User
-  updateUser(fields: UserInput): User
+  updateUserById(fields: UserInput): User
+  deleteUserById(id: String): User
   login(email: String, password: String): String
   register(
     fullName: String
