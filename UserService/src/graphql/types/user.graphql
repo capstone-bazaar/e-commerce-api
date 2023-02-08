@@ -8,8 +8,8 @@ type Query {
 
 type Mutation {
   addUser(fields: UserInput): User
-  updateUserById(fields: UserInput): User
-  deleteUserById(id: String): User
+  updateUser(fields: UserInput): User
+  deleteUser(id: String): Boolean
   login(email: String, password: String): String
   register(
     fullName: String

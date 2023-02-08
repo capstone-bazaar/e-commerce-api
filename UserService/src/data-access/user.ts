@@ -44,15 +44,18 @@ const updateUserById = async ({
   email: string;
   address: string;
 }) => {
-  return await UserModel.updateOne({
-    id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
-  });
+  return await UserModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      fullName,
+      phone,
+      avatarURL,
+      password,
+      email,
+      address,
+    },
+    { new: true }
+  );
 };
 const deleteUserById = async ({ id }: { id: string }) => {
   return await UserModel.deleteOne({

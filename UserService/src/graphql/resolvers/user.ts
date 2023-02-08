@@ -32,30 +32,28 @@ const resolvers = {
         fullName,
       });
     },
-    async updateUserById(
-      {
-        id,
-        fullName,
-        phone,
-        avatarURL,
-        password,
-        email,
-        address,
-      }: {
-        id: string;
-        fullName: string;
-        phone: string;
-        avatarURL: string;
-        password: string;
-        email: string;
-        address: string;
+    async updateUser(
+      _: any,
+      args: {
+        fields: {
+          id: string;
+          fullName: string;
+          phone: string;
+          avatarURL: string;
+          password: string;
+          email: string;
+          address: string;
+        };
       },
-      __: any,
       ctx: any
     ) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
+
+      const { id, fullName, phone, avatarURL, password, email, address } =
+        args.fields;
+
       return await UserController.updateUserById({
         id,
         fullName,
@@ -66,13 +64,21 @@ const resolvers = {
         address,
       });
     },
-    async deleteUserById({ id }: { id: string }, __: any, ctx: any) {
+    async deleteUser(_: any, args: { id: string }, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
-      return await UserController.deleteUserById({
-        id,
-      });
+
+      const { id } = args;
+
+      try {
+        await UserController.deleteUserById({
+          id,
+        });
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
   },
   User: {
