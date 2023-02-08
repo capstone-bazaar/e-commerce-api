@@ -27,5 +27,49 @@ const findUserById = async ({ id }: { id: string }) => {
 const findUser = async ({ email }: { email: string }) => {
   return await UserModel.findOne({ email });
 };
-
-export default { createUser, findUserById, findUser };
+const updateUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserModel.findByIdAndUpdate(
+    { _id: id },
+    {
+      fullName,
+      phone,
+      avatarURL,
+      password,
+      email,
+      address,
+    },
+    { new: true }
+  );
+};
+const deleteUserById = async ({ id }: { id: string }) => {
+  return await UserModel.deleteOne({
+    _id: id,
+  });
+};
+const findAllUsers = async () => {
+  return await UserModel.find();
+};
+export default {
+  createUser,
+  findUserById,
+  findUser,
+  updateUserById,
+  deleteUserById,
+  findAllUsers,
+};

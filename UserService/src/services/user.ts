@@ -34,5 +34,47 @@ const findUserById = async ({ id }: { id: string }) => {
 const findUser = async ({ email }: { email: string }) => {
   return await UserDataAccess.findUser({ email });
 };
+const updateUserById = async ({
+  id,
+  fullName,
+  phone,
+  avatarURL,
+  password,
+  email,
+  address,
+}: {
+  id: string;
+  fullName: string;
+  phone: string;
+  avatarURL: string;
+  password: string;
+  email: string;
+  address: string;
+}) => {
+  return await UserDataAccess.updateUserById({
+    id,
+    fullName,
+    phone,
+    avatarURL,
+    password,
+    email,
+    address,
+  });
+};
+const deleteUserById = async ({ id }: { id: string }) => {
+  return await UserDataAccess.deleteUserById({
+    id,
+  });
+};
+const findAllUsers = async () => {
+  return await UserDataAccess.findAllUsers();
+};
 
-export default { createUser, findUserById, findUser };
+export default {
+  createUser,
+  findUserById,
+  findUser,
+  updateUserById,
+  deleteUserById,
+  findAllUsers,
+};
