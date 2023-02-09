@@ -1,8 +1,15 @@
+import { UserSchemaInterface } from "./../db/interfaces/user.interfaces";
+import {
+  ControllerCreateUserInput,
+  ControllerDeleteUserById,
+  ControllerFindUserByIdInput,
+  ControllerLoginUserInput,
+  ControllerUpdateUserById,
+} from "./interfaces/user.interfaces";
 import UserService from "../services/user";
 import bcrypt from "bcrypt";
-import { UserSchemaType } from "../db/user";
+
 import jwt from "jsonwebtoken";
-import { IUser } from "../types";
 
 const createUser = async ({
   fullName,
@@ -11,7 +18,7 @@ const createUser = async ({
   password,
   email,
   address,
-}: IUser) => {
+}: ControllerCreateUserInput) => {
   return await UserService.createUser({
     fullName,
     phone,
@@ -22,14 +29,8 @@ const createUser = async ({
   });
 };
 
-const login = async ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}) => {
-  const user: Promise<UserSchemaType> | any = await UserService.findUser({
+const login = async ({ email, password }: ControllerLoginUserInput) => {
+  const user: Promise<UserSchemaInterface> | any = await UserService.findUser({
     email,
   });
 
@@ -54,9 +55,10 @@ const login = async ({
   );
 };
 
-const findUserById = async ({ id }: { id: string }) => {
+const findUserById = async ({ id }: ControllerFindUserByIdInput) => {
   return await UserService.findUserById({ id });
 };
+
 const updateUserById = async ({
   id,
   fullName,
@@ -65,15 +67,7 @@ const updateUserById = async ({
   password,
   email,
   address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
+}: ControllerUpdateUserById) => {
   return await UserService.updateUserById({
     id,
     fullName,
@@ -84,14 +78,17 @@ const updateUserById = async ({
     address,
   });
 };
-const deleteUserById = async ({ id }: { id: string }) => {
+
+const deleteUserById = async ({ id }: ControllerDeleteUserById) => {
   return await UserService.deleteUserById({
     id,
   });
 };
+
 const findAllUsers = async () => {
   return await UserService.findAllUsers();
 };
+
 export default {
   createUser,
   login,
