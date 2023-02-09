@@ -1,6 +1,12 @@
 import bcrypt from "bcrypt";
 import UserDataAccess from "../data-access/user";
 import { IUser } from "../types";
+import {
+  ServiceCreateUserInput,
+  ServiceDeleteUserById,
+  ServiceFindUserByIdInput,
+  ServiceUpdateUserById,
+} from "./interfaces/user.interfaces";
 const createUser = async ({
   fullName,
   phone,
@@ -8,7 +14,7 @@ const createUser = async ({
   password,
   email,
   address,
-}: IUser) => {
+}: ServiceCreateUserInput) => {
   const user = await findUser({ email });
 
   if (user) {
@@ -27,7 +33,7 @@ const createUser = async ({
   });
 };
 
-const findUserById = async ({ id }: { id: string }) => {
+const findUserById = async ({ id }: ServiceFindUserByIdInput) => {
   return await UserDataAccess.findUserById({ id });
 };
 
@@ -42,15 +48,7 @@ const updateUserById = async ({
   password,
   email,
   address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
+}: ServiceUpdateUserById) => {
   return await UserDataAccess.updateUserById({
     id,
     fullName,
@@ -61,7 +59,7 @@ const updateUserById = async ({
     address,
   });
 };
-const deleteUserById = async ({ id }: { id: string }) => {
+const deleteUserById = async ({ id }: ServiceDeleteUserById) => {
   return await UserDataAccess.deleteUserById({
     id,
   });

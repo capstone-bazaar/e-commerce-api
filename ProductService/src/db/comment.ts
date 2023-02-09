@@ -1,13 +1,8 @@
+import { CommentSchemaInterface } from "./interfaces/comment.interfaces";
 import mongoose, { Types } from "mongoose";
 const { Schema, model } = mongoose;
 
-interface CommentSchemaType {
-  userID: Types.ObjectId;
-  comment: string;
-  rate: number;
-}
-
-const CommentSchema = new Schema<CommentSchemaType>(
+const CommentSchema = new Schema<CommentSchemaInterface>(
   {
     userID: {
       type: Schema.Types.ObjectId,
@@ -21,5 +16,5 @@ const CommentSchema = new Schema<CommentSchemaType>(
   }
 );
 
-const CommentModel = model<CommentSchemaType>("Comment", CommentSchema);
+const CommentModel = model<CommentSchemaInterface>("Comment", CommentSchema);
 export { CommentModel, CommentSchema };

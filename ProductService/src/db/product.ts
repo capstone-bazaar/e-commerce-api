@@ -1,18 +1,9 @@
+import { ProductSchemaInterface } from "./interfaces/product.interfaces";
 import mongoose, { Types } from "mongoose";
 import { CommentSchema } from "./comment";
 const { Schema, model } = mongoose;
 
-interface ProductSchemaType {
-  price: number;
-  currency: string;
-  stockCount: number;
-  seller: Types.ObjectId;
-  orderedBy: string;
-  imageURL: string;
-  comments: string;
-}
-
-const ProductSchema = new Schema<ProductSchemaType>(
+const ProductSchema = new Schema<ProductSchemaInterface>(
   {
     price: Number,
     currency: String,
@@ -35,4 +26,7 @@ const ProductSchema = new Schema<ProductSchemaType>(
   }
 );
 
-export const ProductModel = model<ProductSchemaType>("Product", ProductSchema);
+export const ProductModel = model<ProductSchemaInterface>(
+  "Product",
+  ProductSchema
+);

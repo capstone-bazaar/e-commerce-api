@@ -1,14 +1,6 @@
+import { ControllerCreateProductInput } from "./interfaces/product.interfaces";
 import ProductServices from "../services/product";
 
-interface ProductType {
-  price: number;
-  currency: string;
-  stockCount: number;
-  seller: string;
-  orderedBy?: string;
-  imageURL: string;
-  comments: string;
-}
 const createProduct = async ({
   price,
   currency,
@@ -16,7 +8,7 @@ const createProduct = async ({
   seller,
   imageURL,
   comments,
-}: ProductType) => {
+}: ControllerCreateProductInput) => {
   return await ProductServices.createProduct({
     price,
     currency,

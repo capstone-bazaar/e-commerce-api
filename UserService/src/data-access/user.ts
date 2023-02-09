@@ -1,5 +1,10 @@
+import {
+  DataAccessCreateUserInput,
+  DataAccessDeleteUserById,
+  DataAccessFindUserByIdInput,
+  DataAccessUpdateUserById,
+} from "./interfaces/user.interfaces";
 import UserModel from "../db/user";
-import { IUser } from "../types";
 
 const createUser = ({
   fullName,
@@ -8,7 +13,7 @@ const createUser = ({
   password,
   email,
   address,
-}: IUser) => {
+}: DataAccessCreateUserInput) => {
   const user = new UserModel({
     fullName,
     phone,
@@ -20,7 +25,7 @@ const createUser = ({
   return user.save();
 };
 
-const findUserById = async ({ id }: { id: string }) => {
+const findUserById = async ({ id }: DataAccessFindUserByIdInput) => {
   return await UserModel.findById(id);
 };
 
@@ -35,15 +40,7 @@ const updateUserById = async ({
   password,
   email,
   address,
-}: {
-  id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
-}) => {
+}: DataAccessUpdateUserById) => {
   return await UserModel.findByIdAndUpdate(
     { _id: id },
     {
@@ -57,7 +54,7 @@ const updateUserById = async ({
     { new: true }
   );
 };
-const deleteUserById = async ({ id }: { id: string }) => {
+const deleteUserById = async ({ id }: DataAccessDeleteUserById) => {
   return await UserModel.deleteOne({
     _id: id,
   });
