@@ -1,14 +1,5 @@
+import { ServiceCreateProductInput } from "./interfaces/product.interfaces";
 import ProductDataAccess from "../data-access/product";
-
-interface ProductType {
-  price: number;
-  currency: string;
-  stockCount: number;
-  seller: string;
-  orderedBy?: string;
-  imageURL: string;
-  comments: string;
-}
 
 const createProduct = async ({
   price,
@@ -17,7 +8,7 @@ const createProduct = async ({
   seller,
   imageURL,
   comments,
-}: ProductType) => {
+}: ServiceCreateProductInput) => {
   return await ProductDataAccess.createProduct({
     price,
     currency,

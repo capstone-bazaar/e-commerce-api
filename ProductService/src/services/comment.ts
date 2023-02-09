@@ -1,11 +1,11 @@
+import { ServiceCreateCommentInput } from "./interfaces/comment.interfaces";
 import CommentDataAccess from "../data-access/comment";
 
-interface CommentType {
-  userID: string;
-  comment: string;
-  rate: number;
-}
-const createComment = async ({ userID, comment, rate }: CommentType) => {
+const createComment = async ({
+  userID,
+  comment,
+  rate,
+}: ServiceCreateCommentInput) => {
   return await CommentDataAccess.createComment({
     userID,
     comment,

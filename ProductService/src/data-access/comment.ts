@@ -1,11 +1,11 @@
-import { CommentModel } from "../db/product";
+import { DataAccessCreateCommentInput } from "./interfaces/comment.interfaces";
+import { CommentModel } from "../db/comment";
 
-interface CommentType {
-  userID: string;
-  comment: string;
-  rate: number;
-}
-const createComment = ({ userID, comment, rate }: CommentType) => {
+const createComment = ({
+  userID,
+  comment,
+  rate,
+}: DataAccessCreateCommentInput) => {
   const comments = new CommentModel({
     userID,
     comment,
