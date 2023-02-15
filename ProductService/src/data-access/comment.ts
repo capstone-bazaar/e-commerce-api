@@ -1,4 +1,8 @@
-import { DataAccessCreateCommentInput } from "./interfaces/comment.interfaces";
+import {
+  DataAccessCreateCommentInput,
+  DataAccessAddCommentByID,
+  DataAccessDeleteCommentByID,
+} from "./interfaces/comment.interfaces";
 import { CommentModel } from "../db/comment";
 
 const createComment = ({
@@ -14,4 +18,18 @@ const createComment = ({
   return comments.save();
 };
 
-export default { createComment };
+const addComment = async ({ userID, comment }: DataAccessAddCommentByID) => {
+  return await CommentModel.updateOne({
+    userID,
+    comment,
+  });
+};
+const deleteComment = async ({
+  userID,
+  comment,
+}: DataAccessDeleteCommentByID) => {
+  return await CommentModel.deleteOne({
+    userID,
+  });
+};
+export default { createComment, addComment, deleteComment };
