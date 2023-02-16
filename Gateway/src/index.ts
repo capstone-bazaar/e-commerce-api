@@ -24,7 +24,7 @@ const startServer = async () => {
       supergraphSdl: new IntrospectAndCompose({
         subgraphs: [
           { name: "userService", url: process.env.USER_SERVICE_URL },
-          // { name: "paymentService", url: process.env.PAYMENT_SERVICE_URL },
+          { name: "orderService", url: process.env.PAYMENT_SERVICE_URL },
           { name: "productService", url: process.env.PRODUCT_SERVICE_URL },
         ],
       }),
@@ -92,7 +92,7 @@ const startServer = async () => {
 
 const startGateWayWithAllServices = () => {
   const waitOnOptions = {
-    resources: ["tcp:4001", "tcp:4002"],
+    resources: ["tcp:4001", "tcp:4002", "tcp:4003"],
   };
   waitOn(waitOnOptions)
     .then(() => {
