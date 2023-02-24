@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
+import { amqpChannel } from "../connections/rabbitmq-connection";
 import UserDataAccess from "../data-access/user";
-import { IUser } from "../types";
 import {
   ServiceCreateUserInput,
   ServiceDeleteUserById,
@@ -23,7 +23,7 @@ const createUser = async ({
 
   const hash = await bcrypt.hash(password, 10);
 
-  return await UserDataAccess.createUser({
+  const createdUser = await UserDataAccess.createUser({
     fullName,
     phone,
     avatarURL,
@@ -31,6 +31,20 @@ const createUser = async ({
     email,
     address,
   });
+
+  if (createdUser && amqpChannel) {
+    amqpChannel.sendToQueue(
+      "mailQueue",
+      Buffer.from(
+        JSON.stringify({
+          event: "welcome",
+          payload: { name: createdUser.fullName, email: createdUser.email },
+        })
+      )
+    );
+  }
+
+  return createdUser;
 };
 
 const findUserById = async ({ id }: ServiceFindUserByIdInput) => {

@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { resolvers } from "./graphql/resolvers/user";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { readFileSync } from "fs";
+import { createAmqpConnection } from "./connections/rabbitmq-connection";
 const mongoose = require("mongoose");
 
 const typeDefs = gql(
@@ -28,6 +29,7 @@ const startUserServiceServer = async () => {
     schema: buildSubgraphSchema({ typeDefs, resolvers }),
   });
 
+  await createAmqpConnection();
   await createDatabaseConnection();
 
   const { url } = await startStandaloneServer(server, {
