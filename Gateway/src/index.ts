@@ -1,9 +1,5 @@
 import { getOriginsAccordingToEnvironment } from "./helpers";
-import {
-  ApolloGateway,
-  IntrospectAndCompose,
-  RemoteGraphQLDataSource,
-} from "@apollo/gateway";
+import { ApolloGateway, IntrospectAndCompose } from "@apollo/gateway";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express from "express";
@@ -11,8 +7,12 @@ import { json } from "body-parser";
 import cors from "cors";
 import { ENVIRONMENTS } from "./constants";
 import { verifyToken } from "./helpers";
+import  graphqlUploadExpress from "graphql-upload/graphqlUploadExpress.js";
 import waitOn from "wait-on";
 require("dotenv").config();
+const app = express();
+
+import FileUploadDataSource from "@profusion/apollo-federation-upload";
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
@@ -29,8 +29,9 @@ const startServer = async () => {
         ],
       }),
       buildService({ name, url }) {
-        return new RemoteGraphQLDataSource({
+        return new FileUploadDataSource({
           url,
+          useChunkedTransfer: true,
           willSendRequest({
             request,
             context,
@@ -54,13 +55,12 @@ const startServer = async () => {
     //TODO: https://www.apollographql.com/docs/apollo-server/using-federation/apollo-gateway-setup
   }
 
-  const app = express();
-
   const server = new ApolloServer({
     gateway,
   });
 
   await server.start();
+  app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 
   app.use(
     "/graphql",

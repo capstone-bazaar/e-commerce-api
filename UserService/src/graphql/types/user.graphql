@@ -1,6 +1,8 @@
 extend schema
   @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key"])
 
+scalar Upload
+
 type Query {
   me: User
   findAllUsers: [User]
@@ -18,18 +20,23 @@ type Mutation {
     password: String
     email: String
   ): String
+  uploadUserPhoto(photo: Upload): Boolean
 }
 
 type User @key(fields: "id") {
   id: ID
   fullName: String
   phone: String
-  avatarURL: String
+  avatarURL: Image
   password: String
   email: String
   address: String
   createdAt: String
   updatedAt: String
+}
+
+type Image {
+  avatarUrl: String
 }
 
 input UserInput {

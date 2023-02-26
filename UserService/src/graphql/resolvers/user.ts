@@ -1,5 +1,7 @@
 import UserController from "../../controllers/user";
 import { IUser } from "../../types";
+import { uploadToStorage } from "../../helpers/image-upload";
+import { nanoid } from "nanoid";
 
 const resolvers = {
   Query: {
@@ -80,7 +82,26 @@ const resolvers = {
         return false;
       }
     },
+    async uploadUserPhoto(_: any, { photo }: { photo: any }, ctx: any) {
+      // if (!ctx || !ctx.id || !ctx.isAuth) {
+      //   throw new Error("You have to login!");
+      // }
+
+      console.log(photo);
+      console.log("Hi!");
+
+      const uploadedImage = await uploadToStorage({
+        filename: `${ctx.id}-${nanoid(5)}`,
+        file: photo,
+      });
+
+      await UserController.updateUserAvatarById({
+        userId: ctx.id,
+        avatarURL: uploadedImage.Location,
+      });
+    },
   },
+
   User: {
     async __resolveReference(user: any) {
       return await UserController.findUserById({ id: user.id });

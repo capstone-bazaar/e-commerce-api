@@ -12,6 +12,11 @@ export interface ServiceFindUserByIdInput {
   id: string;
 }
 
+export interface ServiceUpdateUserAvatarByIdInput {
+  userId: string;
+  avatarURL: string;
+}
+
 export interface ServiceUpdateUserById {
   id: string;
   fullName: string;

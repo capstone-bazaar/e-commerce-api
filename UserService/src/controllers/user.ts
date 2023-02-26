@@ -5,6 +5,7 @@ import {
   ControllerFindUserByIdInput,
   ControllerLoginUserInput,
   ControllerUpdateUserById,
+  ControllerUpdateUserAvatarByIdInput,
 } from "./interfaces/user.interfaces";
 import UserService from "../services/user";
 import bcrypt from "bcrypt";
@@ -108,7 +109,15 @@ const findAllUsers = async () => {
   return await UserService.findAllUsers();
 };
 
+const updateUserAvatarById = async ({
+  userId,
+  avatarURL,
+}: ControllerUpdateUserAvatarByIdInput) => {
+  return await UserService.updateUserAvatarById({ userId, avatarURL });
+};
+
 export default {
+  updateUserAvatarById,
   createUser,
   login,
   findUserById,

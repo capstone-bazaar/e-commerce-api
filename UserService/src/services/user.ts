@@ -6,6 +6,7 @@ import {
   ServiceDeleteUserById,
   ServiceFindUserByIdInput,
   ServiceUpdateUserById,
+  ServiceUpdateUserAvatarByIdInput,
 } from "./interfaces/user.interfaces";
 const createUser = async ({
   fullName,
@@ -82,7 +83,15 @@ const findAllUsers = async () => {
   return await UserDataAccess.findAllUsers();
 };
 
+const updateUserAvatarById = async ({
+  userId,
+  avatarURL,
+}: ServiceUpdateUserAvatarByIdInput) => {
+  return await UserDataAccess.updateUserAvatarById({ userId, avatarURL });
+};
+
 export default {
+  updateUserAvatarById,
   createUser,
   findUserById,
   findUser,

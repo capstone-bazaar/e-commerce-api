@@ -12,6 +12,11 @@ export interface DataAccessFindUserByIdInput {
   id: string;
 }
 
+export interface DataAccessUpdateUserAvatarByIdInput {
+  userId: string;
+  avatarURL: string;
+}
+
 export interface DataAccessUpdateUserById {
   id: string;
   fullName: string;
