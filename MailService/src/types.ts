@@ -6,4 +6,8 @@ type MailEventsType = {
   [key: string]: string;
 };
 
-export { ObjectWithUnknownKeysType, MailEventsType };
+interface CreateNewUserPayloadInterface {
+  name: string;
+  email: string;
+}
+export { ObjectWithUnknownKeysType, MailEventsType, CreateNewUserPayloadInterface };

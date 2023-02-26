@@ -4,6 +4,7 @@
   "description": "E-commerce app (Backend)",
   "main": "index.js",
   "scripts": {
+    "start-service-mail:dev": "NODE_ENV=development env-cmd -f ./MailService/.env.development nodemon --watch './**/*.ts' --exec  npx ts-node ./MailService/src/index.ts",
     "start-service-order:dev": "NODE_ENV=development env-cmd -f ./OrderService/.env.development nodemon --watch './**/*.ts' --exec  npx ts-node ./OrderService/src/index.ts",
     "start-service-product:dev": "NODE_ENV=development env-cmd -f ./ProductService/.env.development nodemon --watch './**/*.ts' --exec  npx ts-node ./ProductService/src/index.ts",
     "start-service-user:dev": "NODE_ENV=development env-cmd -f ./UserService/.env.development nodemon --watch './**/*.ts' --exec ts-node ./UserService/src/index.ts",

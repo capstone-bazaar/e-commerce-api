@@ -92,7 +92,7 @@ const startServer = async () => {
 
 const startGateWayWithAllServices = () => {
   const waitOnOptions = {
-    resources: ["tcp:4001", "tcp:4002", "tcp:4003"],
+    resources: ["tcp:4001", "tcp:4002", "tcp:4003", "tcp:4004"],
   };
   waitOn(waitOnOptions)
     .then(() => {

@@ -10,6 +10,7 @@ const typeDefs = gql(
 );
 
 import { DB_URI } from "../database-config";
+import { createAmqpConnection } from "./connections/rabbitmq-connection";
 
 require("dotenv").config();
 
@@ -27,7 +28,7 @@ const startUserServiceServer = async () => {
   const server = new ApolloServer({
     schema: buildSubgraphSchema({ typeDefs, resolvers }),
   });
-
+  await createAmqpConnection();
   await createDatabaseConnection();
 
   const { url } = await startStandaloneServer(server, {

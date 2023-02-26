@@ -8,7 +8,7 @@ const welcomeMailData = ({
   recieverEmail: string;
 }) => {
   return {
-    from: "Bazaar Team <bazaar@yopmail.com>",
+    from: "Bazaar Team <hello@mybazaar.tech>",
     to: recieverEmail,
     subject: "Hello from Bazaar!",
     template: MAIL_TEMPLATES.WELCOME,
