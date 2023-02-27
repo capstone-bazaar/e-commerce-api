@@ -11,6 +11,8 @@ const userSchema = new Schema<UserSchemaInterface>(
     password: String,
     email: String,
     address: String,
+    verificationID: String,
+    isVerified: Boolean,
   },
   {
     timestamps: true,

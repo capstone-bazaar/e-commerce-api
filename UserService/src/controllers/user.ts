@@ -116,8 +116,19 @@ const updateUserAvatarById = async ({
   return await UserService.updateUserAvatarById({ userId, avatarURL });
 };
 
+const verifyUserByVerificationId = async ({
+  verificationID,
+  id,
+}: {
+  verificationID: string;
+  id: string;
+}) => {
+  return await UserService.verifyUserByVerificationId({ verificationID, id });
+};
+
 export default {
   updateUserAvatarById,
+  verifyUserByVerificationId,
   createUser,
   login,
   findUserById,

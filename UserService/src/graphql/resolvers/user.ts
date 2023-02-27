@@ -1,3 +1,4 @@
+import { model } from "mongoose";
 import UserController from "../../controllers/user";
 import { IUser } from "../../types";
 import { uploadToStorage } from "../../helpers/image-upload";
@@ -99,8 +100,31 @@ const resolvers = {
         avatarURL: uploadedImage.Location,
       });
     },
-  },
+    async verifyUser(
+      _: any,
+      args: { verificationID: string; id: string },
+      ctx: any
+    ) {
+      const { verificationID, id } = args;
 
+      if (!verificationID || !id) {
+        throw new Error("Verification ID is missing!");
+      }
+
+      try {
+        const data = await UserController.verifyUserByVerificationId({
+          verificationID,
+          id,
+        });
+
+        if (!data) {
+          throw new Error("Verification failed!");
+        }
+      } catch (error) {
+        throw new Error(error as string);
+      }
+    },
+  },
   User: {
     async __resolveReference(user: any) {
       return await UserController.findUserById({ id: user.id });

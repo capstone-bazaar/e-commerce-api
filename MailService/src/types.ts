@@ -10,4 +10,16 @@ interface CreateNewUserPayloadInterface {
   name: string;
   email: string;
 }
-export { ObjectWithUnknownKeysType, MailEventsType, CreateNewUserPayloadInterface };
+
+interface VerifyEmailPayloadInterface {
+  payload: {
+    [key: string]: any;
+  };
+  event: string;
+}
+export {
+  ObjectWithUnknownKeysType,
+  MailEventsType,
+  CreateNewUserPayloadInterface,
+  VerifyEmailPayloadInterface,
+};
