@@ -46,7 +46,7 @@ const updateProductById = async ({
     imageURL,
   });
 };
-const addProductById = async ({
+const addProduct = async ({
   userID,
   price,
   currency,
@@ -63,23 +63,25 @@ const addProductById = async ({
     imageURL,
   });
 };
-const findProductById = async ({ userID }: DataAccessFindProductById) => {
+const findProductById = async ({ productID }: DataAccessFindProductById) => {
   return await ProductModel.findOne({
-    userID,
+    _id: productID,
   });
 };
 const findAllProductById = async ({}: DataAccessFindAllProductById) => {
   return await ProductModel.find({});
 };
-const deleteProductById = async ({ userID }: DataAccessDeleteProductById) => {
+const deleteProductById = async ({
+  productID,
+}: DataAccessDeleteProductById) => {
   return await ProductModel.deleteOne({
-    userID,
+    productID,
   });
 };
 export default {
   createProduct,
   updateProductById,
-  addProductById,
+  addProduct,
   findProductById,
   findAllProductById,
   deleteProductById,

@@ -18,18 +18,20 @@ const createComment = ({
   return comments.save();
 };
 
-const addComment = async ({ userID, comment }: DataAccessAddCommentByID) => {
+const addCommentById = async ({
+  userID,
+  productID,
+  comment,
+}: DataAccessAddCommentByID) => {
   return await CommentModel.updateOne({
     userID,
+    productID,
     comment,
   });
 };
-const deleteComment = async ({
-  userID,
-  comment,
-}: DataAccessDeleteCommentByID) => {
+const deleteCommentById = async ({ comment }: DataAccessDeleteCommentByID) => {
   return await CommentModel.deleteOne({
-    userID,
+    comment,
   });
 };
-export default { createComment, addComment, deleteComment };
+export default { createComment, addCommentById, deleteCommentById };

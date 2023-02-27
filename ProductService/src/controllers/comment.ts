@@ -1,6 +1,6 @@
 import {
-  ControllerdeleteCommentProductById,
-  ControlleraddCommentProductById,
+  ControllerDeleteCommentProductById,
+  ControllerAddCommentProductById,
   ControllerCreateCommentInput,
 } from "./interfaces/comment.interfaces";
 import CommentServices from "../services/comment";
@@ -16,22 +16,26 @@ const createComment = async ({
     rate,
   });
 };
-const addComment = async ({
+const addCommentById = async ({
   userID,
+  productID,
   comment,
-}: ControlleraddCommentProductById) => {
-  return await CommentServices.addComment({
+}: ControllerAddCommentProductById) => {
+  return await CommentServices.addCommentById({
     userID,
+    productID,
     comment,
   });
 };
-const deleteComment = async ({
-  userID,
+const deleteCommentById = async ({
   comment,
-}: ControllerdeleteCommentProductById) => {
-  return await CommentServices.deleteComment({
-    userID,
+}: ControllerDeleteCommentProductById) => {
+  return await CommentServices.deleteCommentById({
     comment,
   });
 };
-export default { createComment, addComment, deleteComment };
+export default {
+  createComment,
+  addCommentById,
+  deleteCommentById,
+};

@@ -3,11 +3,11 @@ export interface ControllerCreateCommentInput {
   comment: string;
   rate: number;
 }
-export interface ControlleraddCommentProductById {
+export interface ControllerAddCommentProductById {
   userID: string;
+  productID: string;
   comment: string;
 }
-export interface ControllerdeleteCommentProductById {
-  userID: string;
+export interface ControllerDeleteCommentProductById {
   comment: string;
 }

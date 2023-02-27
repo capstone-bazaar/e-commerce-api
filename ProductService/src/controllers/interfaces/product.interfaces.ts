@@ -25,9 +25,9 @@ export interface ControllerAddProductById {
 }
 
 export interface ControllerFindProductById {
-  userID: string;
+  productID: string;
 }
 export interface ControllerFindAllProductById {}
 export interface ControllerDeleteProductById {
-  userID: string;
+  productID: string;
 }

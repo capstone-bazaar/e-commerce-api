@@ -43,7 +43,7 @@ const updateProductById = async ({
     imageURL,
   });
 };
-const addProductById = async ({
+const addProduct = async ({
   userID,
   price,
   currency,
@@ -51,7 +51,7 @@ const addProductById = async ({
   seller,
   imageURL,
 }: ServiceAddProductById) => {
-  return await ProductDataAccess.addProductById({
+  return await ProductDataAccess.addProduct({
     userID,
     price,
     currency,
@@ -60,23 +60,23 @@ const addProductById = async ({
     imageURL,
   });
 };
-const findProductById = async ({ userID }: ServiceFindProductById) => {
+const findProductById = async ({ productID }: ServiceFindProductById) => {
   return await ProductDataAccess.findProductById({
-    userID,
+    productID,
   });
 };
 const findAllProductById = async ({}: ServiceFindAllProductById) => {
   return await ProductDataAccess.findAllProductById({});
 };
-const deleteProductById = async ({ userID }: ServiceDeleteProductById) => {
+const deleteProductById = async ({ productID }: ServiceDeleteProductById) => {
   return await ProductDataAccess.deleteProductById({
-    userID,
+    productID,
   });
 };
 export default {
   createProduct,
   updateProductById,
-  addProductById,
+  addProduct,
   findProductById,
   findAllProductById,
   deleteProductById,

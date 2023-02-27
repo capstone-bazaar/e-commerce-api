@@ -1,7 +1,7 @@
 import {
   ServiceCreateCommentInput,
-  ServiceaddCommentByID,
-  ServicedeleteCommentByID,
+  ServiceAddCommentByID,
+  ServiceDeleteCommentByID,
 } from "./interfaces/comment.interfaces";
 import CommentDataAccess from "../data-access/comment";
 
@@ -16,16 +16,20 @@ const createComment = async ({
     rate,
   });
 };
-const addComment = async ({ userID, comment }: ServiceaddCommentByID) => {
-  return await CommentDataAccess.addComment({
+const addCommentById = async ({
+  userID,
+  productID,
+  comment,
+}: ServiceAddCommentByID) => {
+  return await CommentDataAccess.addCommentById({
     userID,
+    productID,
     comment,
   });
 };
-const deleteComment = async ({ userID, comment }: ServicedeleteCommentByID) => {
-  return await CommentDataAccess.deleteComment({
-    userID,
+const deleteCommentById = async ({ comment }: ServiceDeleteCommentByID) => {
+  return await CommentDataAccess.deleteCommentById({
     comment,
   });
 };
-export default { createComment, addComment, deleteComment };
+export default { createComment, addCommentById, deleteCommentById };

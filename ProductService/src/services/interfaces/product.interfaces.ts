@@ -25,9 +25,9 @@ export interface ServiceAddProductById {
 }
 
 export interface ServiceFindProductById {
-  userID: string;
+  productID: string;
 }
 export interface ServiceFindAllProductById {}
 export interface ServiceDeleteProductById {
-  userID: string;
+  productID: string;
 }

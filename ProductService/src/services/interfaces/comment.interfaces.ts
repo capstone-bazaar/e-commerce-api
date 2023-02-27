@@ -3,11 +3,11 @@ export interface ServiceCreateCommentInput {
   comment: string;
   rate: number;
 }
-export interface ServiceaddCommentByID {
+export interface ServiceAddCommentByID {
   userID: string;
+  productID: string;
   comment: string;
 }
-export interface ServicedeleteCommentByID {
-  userID: string;
+export interface ServiceDeleteCommentByID {
   comment: string;
 }

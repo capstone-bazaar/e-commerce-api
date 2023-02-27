@@ -5,9 +5,9 @@ export interface DataAccessCreateCommentInput {
 }
 export interface DataAccessAddCommentByID {
   userID: string;
+  productID: string;
   comment: string;
 }
 export interface DataAccessDeleteCommentByID {
-  userID: string;
   comment: string;
 }

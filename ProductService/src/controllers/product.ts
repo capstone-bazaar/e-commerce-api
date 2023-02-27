@@ -43,7 +43,7 @@ const updateProductById = async ({
     imageURL,
   });
 };
-const addProductById = async ({
+const addProduct = async ({
   userID,
   price,
   currency,
@@ -51,7 +51,7 @@ const addProductById = async ({
   seller,
   imageURL,
 }: ControllerAddProductById) => {
-  return await ProductServices.addProductById({
+  return await ProductServices.addProduct({
     userID,
     price,
     currency,
@@ -60,23 +60,25 @@ const addProductById = async ({
     imageURL,
   });
 };
-const findProductById = async ({ userID }: ControllerFindProductById) => {
+const findProductById = async ({ productID }: ControllerFindProductById) => {
   return await ProductServices.findProductById({
-    userID,
+    productID,
   });
 };
 const findAllProductById = async ({}: ControllerFindAllProductById) => {
   return await ProductServices.findAllProductById({});
 };
-const deleteProductById = async ({ userID }: ControllerDeleteProductById) => {
+const deleteProductById = async ({
+  productID,
+}: ControllerDeleteProductById) => {
   return await ProductServices.deleteProductById({
-    userID,
+    productID,
   });
 };
 export default {
   createProduct,
   updateProductById,
-  addProductById,
+  addProduct,
   findProductById,
   findAllProductById,
   deleteProductById,
