@@ -83,17 +83,16 @@ const resolvers = {
       }
     },
     async uploadUserPhoto(_: any, { photo }: { photo: any }, ctx: any) {
-      // if (!ctx || !ctx.id || !ctx.isAuth) {
-      //   throw new Error("You have to login!");
-      // }
-
-      console.log(photo);
-      console.log("Hi!");
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
 
       const uploadedImage = await uploadToStorage({
         filename: `${ctx.id}-${nanoid(5)}`,
         file: photo,
       });
+
+      if (!uploadedImage) return;
 
       await UserController.updateUserAvatarById({
         userId: ctx.id,

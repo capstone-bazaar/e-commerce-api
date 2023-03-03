@@ -1,5 +1,6 @@
-import { Filename } from "./../../node_modules/aws-sdk/clients/auditmanager.d";
 import S3 from "aws-sdk/clients/s3.js";
+import { base64MimeType } from "./base64";
+import url from "url";
 
 const s3 = new S3({
   endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -15,16 +16,19 @@ const uploadToStorage = async ({
   filename: string;
   file: any;
 }) => {
-  const { createReadStream, mimetype } = await file;
+  const buffer = Buffer.from(file.split(",")[1], "base64");
 
-  const stream = await createReadStream();
+  const mimType = base64MimeType(file);
+
+  if (!mimType) return;
 
   const params = {
     Bucket: `${process.env.R2_BUCKET_NAME}`,
     Key: filename,
-    Body: stream,
-    ContentType: mimetype,
+    Body: buffer,
+    ContentType: mimType,
   };
+
   return await s3
     .upload(params, function (s3Err: any, data: any) {
       if (s3Err) throw s3Err;
@@ -33,4 +37,20 @@ const uploadToStorage = async ({
     .promise();
 };
 
-export { uploadToStorage };
+const signURL = (fileURL: string) => {
+  if (!fileURL) {
+    return fileURL;
+  }
+
+  const { path } = url.parse(fileURL);
+
+  if (path) {
+    return s3.getSignedUrl("getObject", {
+      Bucket: "my-bazaar",
+      Key: path.replace("/", ""),
+      Expires: 60 * 60,
+    });
+  }
+};
+
+export { uploadToStorage, signURL };
