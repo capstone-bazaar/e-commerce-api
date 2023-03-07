@@ -19,7 +19,7 @@ const createUser = async ({
   email,
   address,
 }: ControllerCreateUserInput) => {
-  return await UserService.createUser({
+  const user = await UserService.createUser({
     fullName,
     phone,
     avatarURL,
@@ -27,6 +27,25 @@ const createUser = async ({
     email,
     address,
   });
+
+  console.log(user);
+
+  if (user) {
+    return jwt.sign(
+      {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        isAuth: true,
+      },
+      `${process.env.JWT_SECRET}`,
+      {
+        expiresIn: "15d",
+      }
+    );
+  }
+
+  throw new Error("Something went wrong");
 };
 
 const login = async ({ email, password }: ControllerLoginUserInput) => {
