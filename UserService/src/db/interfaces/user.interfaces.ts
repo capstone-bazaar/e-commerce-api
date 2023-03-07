@@ -1,4 +1,5 @@
 export interface UserSchemaInterface {
+  _id: String;
   fullName: String;
   phone: String;
   body: String;
@@ -6,4 +7,6 @@ export interface UserSchemaInterface {
   password: String;
   email: String;
   address: String;
+  verificationID: String;
+  isVerified: Boolean;
 }

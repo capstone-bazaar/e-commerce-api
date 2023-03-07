@@ -45,6 +45,23 @@ const createUser = async ({
     );
   }
 
+  if (createdUser && amqpChannel) {
+    amqpChannel.sendToQueue(
+      "mailQueue",
+      Buffer.from(
+        JSON.stringify({
+          event: "verify-email-link",
+          payload: {
+            userId: createdUser._id,
+            name: createdUser.fullName,
+            email: createdUser.email,
+            verificationID: createdUser.verificationID,
+          },
+        })
+      )
+    );
+  }
+
   return createdUser;
 };
 
@@ -55,6 +72,20 @@ const findUserById = async ({ id }: ServiceFindUserByIdInput) => {
 const findUser = async ({ email }: { email: string }) => {
   return await UserDataAccess.findUser({ email });
 };
+
+const verifyUserByVerificationId = async ({
+  verificationID,
+  id,
+}: {
+  verificationID: string;
+  id: string;
+}) => {
+  return await UserDataAccess.verifyUserByVerificationId({
+    verificationID,
+    id,
+  });
+};
+
 const updateUserById = async ({
   id,
   fullName,
@@ -92,6 +123,7 @@ const updateUserAvatarById = async ({
 
 export default {
   updateUserAvatarById,
+  verifyUserByVerificationId,
   createUser,
   findUserById,
   findUser,

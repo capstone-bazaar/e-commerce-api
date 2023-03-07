@@ -2,9 +2,8 @@ import { MAIL_EVENTS } from "../utils/constants";
 import EmailFormatter from "../formatter/emailFormatters";
 import Mailgun from "mailgun.js";
 import FormData from "form-data";
-import { CreateNewUserPayloadInterface } from "../types";
 
-const emailHandler = async (event: string, payload: CreateNewUserPayloadInterface) => {
+const emailHandler = async (event: string, payload: any) => {
   let formattedMailData: any;
 
   switch (event) {
@@ -14,6 +13,14 @@ const emailHandler = async (event: string, payload: CreateNewUserPayloadInterfac
         recieverEmail: payload.email,
       });
       break;
+
+    case MAIL_EVENTS.VERIFY_EMAIL_LINK:
+      formattedMailData = EmailFormatter.verfiyEmailLink({
+        verificationID: payload.verificationID,
+        recieverEmail: payload.email,
+        name: payload.name,
+        userId: payload.userId,
+      });
 
     default:
       break;
