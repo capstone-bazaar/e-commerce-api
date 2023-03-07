@@ -17,7 +17,7 @@ type Mutation {
     avatarURL: String
     password: String
     email: String
-  ): User
+  ): String
 }
 
 type User @key(fields: "id") {
