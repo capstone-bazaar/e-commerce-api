@@ -27,6 +27,11 @@ export interface ControllerUpdateUserById {
   address: string;
 }
 
+export interface ControllerUpdateUserAvatarByIdInput {
+  userId: string;
+  avatarURL: string;
+}
+
 export interface ControllerDeleteUserById {
   id: string;
 }

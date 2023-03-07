@@ -3,6 +3,7 @@ import {
   DataAccessDeleteUserById,
   DataAccessFindUserByIdInput,
   DataAccessUpdateUserById,
+  DataAccessUpdateUserAvatarByIdInput,
 } from "./interfaces/user.interfaces";
 import UserModel from "../db/user";
 
@@ -62,7 +63,16 @@ const deleteUserById = async ({ id }: DataAccessDeleteUserById) => {
 const findAllUsers = async () => {
   return await UserModel.find();
 };
+
+const updateUserAvatarById = async ({
+  userId,
+  avatarURL,
+}: DataAccessUpdateUserAvatarByIdInput) => {
+  return await UserModel.updateOne({ _id: userId }, { avatarURL });
+};
+
 export default {
+  updateUserAvatarById,
   createUser,
   findUserById,
   findUser,

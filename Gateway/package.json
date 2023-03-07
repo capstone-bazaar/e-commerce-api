@@ -14,6 +14,8 @@
   "dependencies": {
     "@apollo/gateway": "^2.2.1",
     "@apollo/server": "^4.2.2",
+    "@profusion/apollo-federation-upload": "^4.0.0",
+    "apollo-server-env": "^4.2.1",
     "body-parser": "^1.20.1",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.14",
+    "@types/graphql-upload": "^15.0.2",
     "@types/node": "^18.11.12",
     "@types/wait-on": "^5.3.1",
     "ts-node": "^10.9.1",

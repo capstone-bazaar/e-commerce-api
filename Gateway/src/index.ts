@@ -13,6 +13,7 @@ import { ENVIRONMENTS } from "./constants";
 import { verifyToken } from "./helpers";
 import waitOn from "wait-on";
 require("dotenv").config();
+const app = express();
 
 const startServer = async () => {
   const environment = process.env.NODE_ENV as string;
@@ -54,8 +55,6 @@ const startServer = async () => {
     //TODO: https://www.apollographql.com/docs/apollo-server/using-federation/apollo-gateway-setup
   }
 
-  const app = express();
-
   const server = new ApolloServer({
     gateway,
   });
@@ -67,7 +66,7 @@ const startServer = async () => {
     cors({
       origin: getOriginsAccordingToEnvironment(environment),
     }),
-    json(),
+    json({ limit: "50mb" }),
     expressMiddleware(server, {
       context: async ({ req }: { req: any }) => {
         interface JwtPayload {
