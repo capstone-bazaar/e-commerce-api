@@ -113,6 +113,11 @@ const resolvers = {
       return;
     },
   },
+  Order: {
+    products(ids: any) {
+      return;
+    },
+  },
 };
 
 export { resolvers };

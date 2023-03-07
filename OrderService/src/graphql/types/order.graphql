@@ -4,6 +4,20 @@ extend schema
     import: ["@key", "@external"]
   )
 
-type Query {
-  giveOrder: Boolean
+type Mutation {
+  giveOrder(products: [ID]!): Order
+  updateOrder(orderId: ID, status: String): Order
+}
+
+type Order @key(fields: "id") {
+  id: ID
+  buyer: User
+  orderId: ID
+  totalPrice: Int
+  status: String
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external
+  orders: Order
 }

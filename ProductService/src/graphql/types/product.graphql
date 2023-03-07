@@ -42,6 +42,11 @@ type Product {
   updatedAt: String
 }
 
+extend type Order @key(fields: "id") {
+  id: ID! @external
+  products: [Product]
+}
+
 input ProductInput {
   price: Int
   currency: String
