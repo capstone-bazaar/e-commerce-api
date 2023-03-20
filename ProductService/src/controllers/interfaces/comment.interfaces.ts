@@ -9,5 +9,6 @@ export interface ControllerAddCommentProductById {
   comment: string;
 }
 export interface ControllerDeleteCommentProductById {
-  comment: string;
+  id: string;
+  productID: string;
 }

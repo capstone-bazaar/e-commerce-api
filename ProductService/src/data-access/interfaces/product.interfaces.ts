@@ -27,7 +27,7 @@ export interface DataAccessAddProductById {
 export interface DataAccessFindProductById {
   productID: string;
 }
-export interface DataAccessFindAllProductById {}
+export interface DataAccessFindAllProducts {}
 export interface DataAccessDeleteProductById {
   productID: string;
 }

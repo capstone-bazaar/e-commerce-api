@@ -28,10 +28,12 @@ const addCommentById = async ({
   });
 };
 const deleteCommentById = async ({
-  comment,
+  id,
+  productID,
 }: ControllerDeleteCommentProductById) => {
   return await CommentServices.deleteCommentById({
-    comment,
+    id,
+    productID,
   });
 };
 export default {

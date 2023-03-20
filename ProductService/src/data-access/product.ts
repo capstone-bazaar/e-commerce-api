@@ -1,13 +1,13 @@
 import {
   DataAccessCreateProductInput,
   DataAccessAddProductById,
-  DataAccessFindAllProductById,
+  DataAccessFindAllProducts,
   DataAccessFindProductById,
   DataAccessUpdateProductById,
   DataAccessDeleteProductById,
 } from "./interfaces/product.interfaces";
 import { ProductModel } from "../db/product";
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 const ObjectId = Types.ObjectId;
 
@@ -68,14 +68,14 @@ const findProductById = async ({ productID }: DataAccessFindProductById) => {
     _id: productID,
   });
 };
-const findAllProductById = async ({}: DataAccessFindAllProductById) => {
-  return await ProductModel.find({});
+const findAllProducts = async () => {
+  return await ProductModel.find();
 };
 const deleteProductById = async ({
   productID,
 }: DataAccessDeleteProductById) => {
   return await ProductModel.deleteOne({
-    productID,
+    _id: new mongoose.Types.ObjectId(productID),
   });
 };
 export default {
@@ -83,6 +83,6 @@ export default {
   updateProductById,
   addProduct,
   findProductById,
-  findAllProductById,
+  findAllProducts,
   deleteProductById,
 };

@@ -9,5 +9,6 @@ export interface ServiceAddCommentByID {
   comment: string;
 }
 export interface ServiceDeleteCommentByID {
-  comment: string;
+  id: string;
+  productID: string;
 }

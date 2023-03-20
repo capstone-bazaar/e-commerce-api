@@ -2,7 +2,7 @@ import {
   ControllerCreateProductInput,
   ControllerAddProductById,
   ControllerDeleteProductById,
-  ControllerFindAllProductById,
+  ControllerFindAllProducts,
   ControllerFindProductById,
   ControllerUpdateProductById,
 } from "./interfaces/product.interfaces";
@@ -65,8 +65,8 @@ const findProductById = async ({ productID }: ControllerFindProductById) => {
     productID,
   });
 };
-const findAllProductById = async ({}: ControllerFindAllProductById) => {
-  return await ProductServices.findAllProductById({});
+const findAllProducts = async () => {
+  return await ProductServices.findAllProducts();
 };
 const deleteProductById = async ({
   productID,
@@ -80,6 +80,6 @@ export default {
   updateProductById,
   addProduct,
   findProductById,
-  findAllProductById,
+  findAllProducts,
   deleteProductById,
 };

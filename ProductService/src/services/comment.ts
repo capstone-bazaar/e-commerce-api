@@ -27,9 +27,13 @@ const addCommentById = async ({
     comment,
   });
 };
-const deleteCommentById = async ({ comment }: ServiceDeleteCommentByID) => {
+const deleteCommentById = async ({
+  id,
+  productID,
+}: ServiceDeleteCommentByID) => {
   return await CommentDataAccess.deleteCommentById({
-    comment,
+    id,
+    productID,
   });
 };
 export default { createComment, addCommentById, deleteCommentById };

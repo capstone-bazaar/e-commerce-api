@@ -9,5 +9,6 @@ export interface DataAccessAddCommentByID {
   comment: string;
 }
 export interface DataAccessDeleteCommentByID {
-  comment: string;
+  id: string;
+  productID: string;
 }
