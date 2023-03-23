@@ -2,8 +2,12 @@ import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import gql from "graphql-tag";
 import { resolvers } from "./graphql/resolvers/product";
-import { startStandaloneServer } from "@apollo/server/standalone";
+
+import { expressMiddleware } from "@apollo/server/express4";
 import { readFileSync } from "fs";
+import express from "express";
+
+const app = express();
 const mongoose = require("mongoose");
 const typeDefs = gql(
   readFileSync(`${__dirname}/graphql/types/product.graphql`).toString("utf-8")
@@ -32,16 +36,14 @@ const startUserServiceServer = async () => {
   await createAmqpConnection();
   await createDatabaseConnection();
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4002 },
-    context: async ({ req }: { req: any }) => {
-      const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+  await server.start();
 
-      return user;
-    },
+  app.use(express.json());
+  app.use(expressMiddleware(server));
+
+  app.listen({ port: 4002 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4002/`);
   });
-
-  console.log(`🚀 Product Service: Server ready at ${url}`);
 };
 
 startUserServiceServer();

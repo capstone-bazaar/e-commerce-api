@@ -9,6 +9,7 @@ const createNewOrder = async ({
   buyer,
 }: ControllerCreateNewOrderInput) => {
   let totalPrice = 0;
+
   return await OrderDataAccess.createNewOrder({ products, totalPrice, buyer });
 };
 

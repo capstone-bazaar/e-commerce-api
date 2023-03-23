@@ -5,7 +5,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "compile": "tsc",
-    "start:dev": "NODE_ENV=development env-cmd -f .env.development nodemon --exec npx ts-node ./dist/index.js",
+    "start:dev": "NODE_ENV=development env-cmd -f .env.development nodemon --exec npx ts-node ./src/index.ts",
     "start:production": "npm run compile && NODE_ENV=production env-cmd -f .env.production nodemon --watch './**/*.ts' --exec 'ts-node' ./dist/index.js"
   },
   "keywords": [],
