@@ -1,5 +1,11 @@
-import { DataAccessCreateCommentInput } from "./interfaces/comment.interfaces";
+import {
+  DataAccessCreateCommentInput,
+  DataAccessAddCommentByID,
+  DataAccessDeleteCommentByID,
+} from "./interfaces/comment.interfaces";
+import mongoose from "mongoose";
 import { CommentModel } from "../db/comment";
+import { ProductModel } from "../db/product";
 
 const createComment = ({
   userID,
@@ -14,4 +20,35 @@ const createComment = ({
   return comments.save();
 };
 
-export default { createComment };
+const addCommentById = async ({
+  userID,
+  productID,
+  comment,
+}: DataAccessAddCommentByID) => {
+  return await ProductModel.updateOne(
+    { _id: new mongoose.Types.ObjectId(productID) },
+    {
+      $push: {
+        comments: { userID: new mongoose.Types.ObjectId(userID), comment },
+      },
+    }
+  );
+};
+const deleteCommentById = async ({
+  id,
+  productID,
+}: DataAccessDeleteCommentByID) => {
+  return await ProductModel.updateOne(
+    {
+      _id: new mongoose.Types.ObjectId(productID),
+    },
+    {
+      $pull: {
+        comments: {
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+    }
+  );
+};
+export default { createComment, addCommentById, deleteCommentById };

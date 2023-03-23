@@ -1,4 +1,8 @@
-import { ControllerCreateCommentInput } from "./interfaces/comment.interfaces";
+import {
+  ControllerDeleteCommentProductById,
+  ControllerAddCommentProductById,
+  ControllerCreateCommentInput,
+} from "./interfaces/comment.interfaces";
 import CommentServices from "../services/comment";
 
 const createComment = async ({
@@ -12,5 +16,28 @@ const createComment = async ({
     rate,
   });
 };
-
-export default { createComment };
+const addCommentById = async ({
+  userID,
+  productID,
+  comment,
+}: ControllerAddCommentProductById) => {
+  return await CommentServices.addCommentById({
+    userID,
+    productID,
+    comment,
+  });
+};
+const deleteCommentById = async ({
+  id,
+  productID,
+}: ControllerDeleteCommentProductById) => {
+  return await CommentServices.deleteCommentById({
+    id,
+    productID,
+  });
+};
+export default {
+  createComment,
+  addCommentById,
+  deleteCommentById,
+};

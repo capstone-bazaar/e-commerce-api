@@ -7,10 +7,17 @@ extend schema
 type Query {
   allProducts: [Product]
   product: Product
+  findProductById(id: String): Product
+  findAllProducts: [Product]
 }
 
 type Mutation {
   addProduct(fields: ProductInput): Product
+  createComment(fields: CommentInput): Comment
+  addCommentById(fields: AddCommentInput): Comment
+  deleteCommentById(fields: DeleteCommentInput): Comment
+  updateProductById(fields: UpdateProductInput): Product
+  deleteProductById(fields: DeleteProductInput): Product
 }
 
 type Comment {
@@ -39,6 +46,32 @@ input ProductInput {
   stockCount: Int
   seller: ID
   imageURL: String
+}
+input CommentInput {
+  userID: String
+  comment: String
+  rate: Int
+}
+input AddCommentInput {
+  userID: String
+  productID: String
+  comment: String
+}
+input DeleteCommentInput {
+  id: String
+  productID: String
+}
+input UpdateProductInput {
+  userID: String
+  price: Int
+  currency: String
+  stockCount: Int
+  seller: String
+  imageURL: String
+  productID: String
+}
+input DeleteProductInput {
+  productID: String
 }
 
 extend type User @key(fields: "id") {
