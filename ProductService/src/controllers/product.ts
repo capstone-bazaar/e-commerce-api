@@ -13,7 +13,7 @@ const createProduct = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
   comments,
 }: ControllerCreateProductInput) => {
   return await ProductServices.createProduct({
@@ -21,7 +21,7 @@ const createProduct = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
     comments,
   });
 };
@@ -32,7 +32,7 @@ const updateProductById = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: ControllerUpdateProductById) => {
   return await ProductServices.updateProductById({
     userID,
@@ -40,7 +40,7 @@ const updateProductById = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const addProduct = async ({
@@ -49,7 +49,7 @@ const addProduct = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: ControllerAddProductById) => {
   return await ProductServices.addProduct({
     userID,
@@ -57,7 +57,7 @@ const addProduct = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const findProductById = async ({ productID }: ControllerFindProductById) => {

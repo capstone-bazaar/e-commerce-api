@@ -6,29 +6,28 @@ const resolvers = {
     product() {
       return;
     },
-    async findProductById(
-      parent: any,
-      args: any,
-      contextValue: any,
-      info: any
-    ) {
-      const { productID } = args.fields;
+    async findProductById(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const { productID } = args;
       return await ProductController.findProductById({
         productID,
       });
     },
-    async findAllProducts(
-      parent: any,
-      args: any,
-      contextValue: any,
-      info: any
-    ) {
+    async findAllProducts(_: any, __: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
       return await ProductController.findAllProducts();
     },
   },
   Mutation: {
-    async addProduct(parent: any, args: any, contextValue: any, info: any) {
-      const { price, currency, stockCount, seller, imageURL, comments } =
+    async addProduct(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const { price, currency, stockCount, seller, imageURLs, comments } =
         args.fields;
 
       return await ProductController.createProduct({
@@ -36,11 +35,14 @@ const resolvers = {
         currency,
         stockCount,
         seller,
-        imageURL,
+        imageURLs,
         comments,
       });
     },
-    async createComment(parent: any, args: any, contextValue: any, info: any) {
+    async createComment(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
       const { userID, comment, rate } = args.fields;
       return await CommentController.createComment({
         userID,
@@ -48,7 +50,10 @@ const resolvers = {
         rate,
       });
     },
-    async addCommentById(parent: any, args: any, contextValue: any, info: any) {
+    async addCommentById(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
       const { userID, productID, comment } = args.fields;
       return await CommentController.addCommentById({
         userID,
@@ -56,25 +61,21 @@ const resolvers = {
         comment,
       });
     },
-    async deleteCommentById(
-      parent: any,
-      args: any,
-      contextValue: any,
-      info: any
-    ) {
+    async deleteCommentById(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
       const { id, productID } = args.fields;
       return await CommentController.deleteCommentById({
         id,
         productID,
       });
     },
-    async updateProductById(
-      parent: any,
-      args: any,
-      contextValue: any,
-      info: any
-    ) {
-      const { userID, price, currency, stockCount, seller, imageURL } =
+    async updateProductById(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const { userID, price, currency, stockCount, seller, imageURLs } =
         args.fields;
       return await ProductController.updateProductById({
         userID,
@@ -82,18 +83,22 @@ const resolvers = {
         currency,
         stockCount,
         seller,
-        imageURL,
+        imageURLs,
       });
     },
 
-    async deleteProductById(
-      parent: any,
-      args: any,
-      contextValue: any,
-      info: any
-    ) {
+    async deleteProductById(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
       const { productID } = args.fields;
       return await ProductController.deleteProductById({ productID });
+    },
+  },
+
+  Comment: {
+    user(comment: any) {
+      return { id: comment.userID };
     },
   },
 

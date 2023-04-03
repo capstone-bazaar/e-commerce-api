@@ -13,7 +13,7 @@ const createProduct = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
   comments,
 }: ServiceCreateProductInput) => {
   return await ProductDataAccess.createProduct({
@@ -21,7 +21,7 @@ const createProduct = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
     comments,
   });
 };
@@ -32,7 +32,7 @@ const updateProductById = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: ServiceUpdateProductById) => {
   return await ProductDataAccess.updateProductById({
     userID,
@@ -40,7 +40,7 @@ const updateProductById = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const addProduct = async ({
@@ -49,7 +49,7 @@ const addProduct = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: ServiceAddProductById) => {
   return await ProductDataAccess.addProduct({
     userID,
@@ -57,7 +57,7 @@ const addProduct = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const findProductById = async ({ productID }: ServiceFindProductById) => {

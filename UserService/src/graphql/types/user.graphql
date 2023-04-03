@@ -28,16 +28,12 @@ type User @key(fields: "id") {
   id: ID
   fullName: String
   phone: String
-  avatarURL: Image
+  avatarURL: String
   password: String
   email: String
   address: String
   createdAt: String
   updatedAt: String
-}
-
-type Image {
-  avatarUrl: String
 }
 
 input UserInput {

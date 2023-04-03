@@ -34,6 +34,11 @@ const startUserServiceServer = async () => {
 
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4002 },
+    context: async ({ req }: { req: any }) => {
+      const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+
+      return user;
+    },
   });
 
   console.log(`🚀 Product Service: Server ready at ${url}`);

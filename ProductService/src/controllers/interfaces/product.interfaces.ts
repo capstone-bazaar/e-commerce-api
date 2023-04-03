@@ -4,7 +4,7 @@ export interface ControllerCreateProductInput {
   stockCount: number;
   seller: string;
   orderedBy?: string;
-  imageURL: string;
+  imageURLs: [string];
   comments: string;
 }
 export interface ControllerUpdateProductById {
@@ -13,7 +13,7 @@ export interface ControllerUpdateProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: [string];
 }
 export interface ControllerAddProductById {
   userID: string;
@@ -21,7 +21,7 @@ export interface ControllerAddProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: [string];
 }
 
 export interface ControllerFindProductById {
