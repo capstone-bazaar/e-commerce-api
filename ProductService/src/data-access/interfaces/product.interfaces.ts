@@ -4,7 +4,7 @@ export interface DataAccessCreateProductInput {
   stockCount: number;
   seller: string;
   orderedBy?: string;
-  imageURL: string;
+  imageURLs: string[];
   comments: string;
 }
 export interface DataAccessUpdateProductById {
@@ -13,7 +13,7 @@ export interface DataAccessUpdateProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: string[];
 }
 export interface DataAccessAddProductById {
   userID: string;
@@ -21,7 +21,7 @@ export interface DataAccessAddProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: string[];
 }
 
 export interface DataAccessFindProductById {

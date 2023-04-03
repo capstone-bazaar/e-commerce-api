@@ -4,7 +4,7 @@ export interface ServiceCreateProductInput {
   stockCount: number;
   seller: string;
   orderedBy?: string;
-  imageURL: string;
+  imageURLs: string[];
   comments: string;
 }
 export interface ServiceUpdateProductById {
@@ -13,7 +13,7 @@ export interface ServiceUpdateProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: string[];
 }
 export interface ServiceAddProductById {
   userID: string;
@@ -21,7 +21,7 @@ export interface ServiceAddProductById {
   currency: string;
   stockCount: number;
   seller: string;
-  imageURL: string;
+  imageURLs: string[];
 }
 
 export interface ServiceFindProductById {

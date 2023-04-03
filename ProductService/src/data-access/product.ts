@@ -16,7 +16,7 @@ const createProduct = ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
   comments,
 }: DataAccessCreateProductInput) => {
   const product = new ProductModel({
@@ -24,7 +24,7 @@ const createProduct = ({
     currency,
     stockCount,
     seller: new ObjectId(seller),
-    imageURL,
+    imageURLs,
     comments,
   });
   return product.save();
@@ -35,7 +35,7 @@ const updateProductById = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: DataAccessUpdateProductById) => {
   return await ProductModel.updateOne({
     userID,
@@ -43,7 +43,7 @@ const updateProductById = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const addProduct = async ({
@@ -52,7 +52,7 @@ const addProduct = async ({
   currency,
   stockCount,
   seller,
-  imageURL,
+  imageURLs,
 }: DataAccessAddProductById) => {
   return await ProductModel.create({
     userID,
@@ -60,7 +60,7 @@ const addProduct = async ({
     currency,
     stockCount,
     seller,
-    imageURL,
+    imageURLs,
   });
 };
 const findProductById = async ({ productID }: DataAccessFindProductById) => {

@@ -5,9 +5,11 @@ const { Schema, model } = mongoose;
 
 const ProductSchema = new Schema<ProductSchemaInterface>(
   {
+    title: String,
     price: Number,
     currency: String,
     stockCount: Number,
+    description: String,
     seller: {
       type: Schema.Types.ObjectId,
       ref: "User",
@@ -18,7 +20,7 @@ const ProductSchema = new Schema<ProductSchemaInterface>(
         ref: "User",
       },
     ],
-    imageURL: String,
+    imageURLs: [String],
     comments: [CommentSchema],
   },
   {
