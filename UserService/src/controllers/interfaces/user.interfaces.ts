@@ -35,3 +35,13 @@ export interface ControllerUpdateUserAvatarByIdInput {
 export interface ControllerDeleteUserById {
   id: string;
 }
+
+export interface ControllerAddProductToShoppingCartByProductIdInput {
+  userId: string;
+  productId: string;
+}
+
+export interface ControllerRemoveProductFromShoppingCartByProductIdInput {
+  userId: string;
+  productId: string;
+}

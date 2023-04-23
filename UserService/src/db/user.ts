@@ -13,6 +13,7 @@ const userSchema = new Schema<UserSchemaInterface>(
     address: String,
     verificationID: String,
     isVerified: Boolean,
+    shoppingCart: [Schema.Types.ObjectId],
   },
   {
     timestamps: true,

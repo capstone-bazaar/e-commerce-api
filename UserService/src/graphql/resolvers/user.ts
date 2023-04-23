@@ -83,6 +83,29 @@ const resolvers = {
         return false;
       }
     },
+    async addProductToShoppingCart(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const updatedUser = UserController.addProductToShoppingCartByProductId({
+        userId: ctx.id,
+        productId: args.productId,
+      });
+
+      return !updatedUser;
+    },
+    async removeProductFromShoppingCart(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const updatedUser =
+        UserController.removeProductFromShoppingCartByProductId({
+          userId: ctx.id,
+          productId: args.productId,
+        });
+
+      return !updatedUser;
+    },
     async uploadUserPhoto(_: any, { photo }: { photo: any }, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");

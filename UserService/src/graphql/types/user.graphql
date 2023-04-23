@@ -1,5 +1,8 @@
 extend schema
-  @link(url: "https://specs.apollo.dev/federation/v2.0", import: ["@key"])
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.0"
+    import: ["@key", "@external"]
+  )
 
 scalar Upload
 
@@ -22,6 +25,8 @@ type Mutation {
   ): String
   uploadUserPhoto(photo: Upload): Boolean
   verifyUser(verificationID: String, id: String): Boolean
+  addProductToShoppingCart(productId: String): Boolean
+  removeProductFromShoppingCart(productId: String): Boolean
 }
 
 type User @key(fields: "id") {
@@ -34,6 +39,7 @@ type User @key(fields: "id") {
   address: String
   createdAt: String
   updatedAt: String
+  shoppingCart: [Product]
 }
 
 input UserInput {
@@ -44,4 +50,8 @@ input UserInput {
   password: String
   email: String
   address: String
+}
+
+extend type Product @key(fields: "id") {
+  id: ID! @external
 }

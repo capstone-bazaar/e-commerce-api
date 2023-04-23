@@ -28,7 +28,7 @@ type Comment {
   createdAt: String
 }
 
-type Product {
+type Product @key(fields: "id") {
   id: ID
   price: Int
   currency: String

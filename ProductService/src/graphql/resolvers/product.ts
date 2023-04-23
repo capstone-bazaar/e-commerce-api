@@ -103,7 +103,10 @@ const resolvers = {
   },
 
   Product: {
-    __resolveReference() {},
+    async __resolveReference(product: any) {
+      return await ProductController.findProductById({ productID: product.id });
+    },
+
     seller(product: any) {
       return { id: product.seller };
     },

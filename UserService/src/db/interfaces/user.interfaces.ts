@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 export interface UserSchemaInterface {
   _id: String;
   fullName: String;
@@ -9,4 +10,5 @@ export interface UserSchemaInterface {
   address: String;
   verificationID: String;
   isVerified: Boolean;
+  shoppingCart: Types.ObjectId[];
 }

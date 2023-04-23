@@ -39,7 +39,14 @@ const startUserServiceServer = async () => {
   await server.start();
 
   app.use(express.json());
-  app.use(expressMiddleware(server));
+  app.use(
+    expressMiddleware(server, {
+      context: ({ req }: { req: any }) => {
+        const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+        return user;
+      },
+    })
+  );
 
   app.listen({ port: 4002 }, () => {
     console.log(`🚀 Server ready at http://localhost:4002/`);

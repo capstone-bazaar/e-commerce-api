@@ -30,3 +30,14 @@ export interface DataAccessUpdateUserById {
 export interface DataAccessDeleteUserById {
   id: string;
 }
+
+export interface DataAccessAddProductToShoppingCartByProductIdInput {
+  userId: string;
+  productId: string;
+}
+
+
+export interface DataAccessRemoveProductFromShoppingCartByProductIdInput  {
+  userId: string;
+  productId: string;
+}

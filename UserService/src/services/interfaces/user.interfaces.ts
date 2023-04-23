@@ -30,3 +30,13 @@ export interface ServiceUpdateUserById {
 export interface ServiceDeleteUserById {
   id: string;
 }
+
+export interface ServiceAddProductToShoppingCartByProductIdInput {
+  userId: string;
+  productId: string;
+}
+
+export interface ServiceRemoveProductFromShoppingCartByProductIdInput {
+  userId: string;
+  productId: string;
+}
