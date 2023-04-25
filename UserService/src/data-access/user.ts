@@ -53,24 +53,11 @@ const verifyUserByVerificationId = async ({
 const findUser = async ({ email }: { email: string }) => {
   return await UserModel.findOne({ email });
 };
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: DataAccessUpdateUserById) => {
+const updateUserById = async ({ id, fields }: DataAccessUpdateUserById) => {
   return await UserModel.findByIdAndUpdate(
     { _id: id },
     {
-      fullName,
-      phone,
-      avatarURL,
-      password,
-      email,
-      address,
+      ...fields,
     },
     { new: true }
   );

@@ -15,6 +15,7 @@ const typeDefs = gql(
 
 import { DB_URI } from "../database-config";
 import { createAmqpConnection } from "./connections/rabbitmq-connection";
+import { router } from "./routes/product";
 
 require("dotenv").config();
 
@@ -37,7 +38,7 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   await server.start();
-
+  app.use("/", express.urlencoded({ extended: true }), router);
   app.use(express.json());
   app.use(
     expressMiddleware(server, {

@@ -88,23 +88,10 @@ const verifyUserByVerificationId = async ({
   });
 };
 
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: ServiceUpdateUserById) => {
+const updateUserById = async ({ id, fields }: ServiceUpdateUserById) => {
   return await UserDataAccess.updateUserById({
     id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
+    fields,
   });
 };
 const deleteUserById = async ({ id }: ServiceDeleteUserById) => {

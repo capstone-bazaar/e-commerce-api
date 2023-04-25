@@ -14,6 +14,7 @@ const userSchema = new Schema<UserSchemaInterface>(
     verificationID: String,
     isVerified: Boolean,
     shoppingCart: [Schema.Types.ObjectId],
+    budget: Number,
   },
   {
     timestamps: true,

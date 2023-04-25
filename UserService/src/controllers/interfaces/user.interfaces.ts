@@ -19,12 +19,7 @@ export interface ControllerFindUserByIdInput {
 
 export interface ControllerUpdateUserById {
   id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
+  fields: any;
 }
 
 export interface ControllerUpdateUserAvatarByIdInput {

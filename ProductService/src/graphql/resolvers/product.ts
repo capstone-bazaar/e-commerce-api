@@ -15,11 +15,13 @@ const resolvers = {
         productID,
       });
     },
-    async findAllProducts(_: any, __: any, ctx: any) {
+    async findAllProducts(_: any, args: any, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
-      return await ProductController.findAllProducts();
+      return await ProductController.findAllProducts({
+        products: args.products,
+      });
     },
   },
   Mutation: {

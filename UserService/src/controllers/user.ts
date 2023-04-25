@@ -79,23 +79,10 @@ const findUserById = async ({ id }: ControllerFindUserByIdInput) => {
   return await UserService.findUserById({ id });
 };
 
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: ControllerUpdateUserById) => {
+const updateUserById = async ({ id, fields }: ControllerUpdateUserById) => {
   return await UserService.updateUserById({
     id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
+    fields,
   });
 };
 

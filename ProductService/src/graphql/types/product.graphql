@@ -8,7 +8,7 @@ type Query {
   allProducts: [Product]
   product: Product
   findProductById(productID: String): Product
-  findAllProducts: [Product]
+  findAllProducts(products: [ID]): [Product]
 }
 
 type Mutation {

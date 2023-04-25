@@ -3,12 +3,12 @@ import OrtderController from "../../controllers/order";
 const resolvers = {
   Query: {},
   Mutation: {
-    async giveOrder(_: any, args: any, ctx: any) {
-      const { buyer, products } = args;
-      if (!buyer || !products || products.length === 0) {
-        throw new Error("Something went wrong! Please check your order again.");
+    async giveOrder(_: any, __: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
       }
-      return await OrtderController.createNewOrder({ buyer, products });
+
+      return await OrtderController.createNewOrder({ buyer: ctx.id });
     },
   },
   Order: {

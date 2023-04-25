@@ -11,4 +11,5 @@ export interface UserSchemaInterface {
   verificationID: String;
   isVerified: Boolean;
   shoppingCart: Types.ObjectId[];
+  budget: Number;
 }

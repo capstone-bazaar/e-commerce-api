@@ -19,12 +19,7 @@ export interface DataAccessUpdateUserAvatarByIdInput {
 
 export interface DataAccessUpdateUserById {
   id: string;
-  fullName: string;
-  phone: string;
-  avatarURL: string;
-  password: string;
-  email: string;
-  address: string;
+  fields: any;
 }
 
 export interface DataAccessDeleteUserById {
@@ -36,8 +31,7 @@ export interface DataAccessAddProductToShoppingCartByProductIdInput {
   productId: string;
 }
 
-
-export interface DataAccessRemoveProductFromShoppingCartByProductIdInput  {
+export interface DataAccessRemoveProductFromShoppingCartByProductIdInput {
   userId: string;
   productId: string;
 }
