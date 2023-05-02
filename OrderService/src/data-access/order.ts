@@ -5,25 +5,15 @@ import {
   DataAccessUpdateOrderStatusByOrderIdInput,
 } from "./interfaces/order.interfaces";
 
-const createNewOrder = async ({
-  products,
-  totalPrice,
-  buyer,
-}: DataAccessCreateNewOrderInput) => {
-  return await OrderModel.create({
-    totalPrice,
-    buyer: new mongoose.Types.ObjectId(buyer),
-    products: products.map(
-      (product: string) => new mongoose.Types.ObjectId(product)
-    ),
-  });
+const createNewOrder = async (orders: DataAccessCreateNewOrderInput) => {
+  return await OrderModel.insertMany(orders);
 };
 
 const updateOrderStatusByOrderId = async ({
   orderId,
-  status,
+  fields,
 }: DataAccessUpdateOrderStatusByOrderIdInput) => {
-  return await OrderModel.updateOne({ orderId }, { status });
+  return await OrderModel.updateOne({ orderId }, fields);
 };
 
 const findOrderById = async ({ id }: { id: string }) => {

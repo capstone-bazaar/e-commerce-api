@@ -2,13 +2,19 @@ import { ORDER_STATUSES } from "../../db/interfaces/order.interfaces";
 
 interface DataAccessCreateNewOrderInput {
   buyer: string;
-  products: string[];
-  totalPrice: number;
+  product: string;
+  price: number;
+  orderNumber: number;
+  shippingAddress: string;
+  paymentMethod: string;
 }
 
 interface DataAccessUpdateOrderStatusByOrderIdInput {
   orderId: string;
-  status: ORDER_STATUSES;
+  fields: {
+    status?: ORDER_STATUSES;
+    trackingNumber?: string;
+  };
 }
 
 export {

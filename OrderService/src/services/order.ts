@@ -4,21 +4,17 @@ import {
   ServiceUpdateOrderStatusByOrderIdInput,
 } from "./interfaces/order.interfaces";
 
-const createNewOrder = async ({
-  products,
-  totalPrice,
-  buyer,
-}: ServiceCreateNewOrderInput) => {
-  return await OrderDataAccess.createNewOrder({ products, totalPrice, buyer });
+const createNewOrder = async (orders: ServiceCreateNewOrderInput) => {
+  return await OrderDataAccess.createNewOrder(orders);
 };
 
 const updateOrderStatusByOrderId = async ({
   orderId,
-  status,
+  fields,
 }: ServiceUpdateOrderStatusByOrderIdInput) => {
   return await OrderDataAccess.updateOrderStatusByOrderId({
     orderId,
-    status,
+    fields,
   });
 };
 

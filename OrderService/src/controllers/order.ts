@@ -6,40 +6,58 @@ import {
 
 import axios from "axios";
 
-const createNewOrder = async ({ buyer }: ControllerCreateNewOrderInput) => {
+const createNewOrder = async ({
+  buyer,
+  shippingAddress,
+  paymentMethod,
+}: ControllerCreateNewOrderInput) => {
   try {
-    const userResponse: any = await axios.get(
+    const { data: user }: any = await axios.get(
       `${process.env.USER_SERVICE_URL}/users/${buyer}`
     );
 
-    const productsResponse: any = await axios.get(
-      `${
-        process.env.PRODUCT_SERVICE_URL
-      }/products/${userResponse.data.shoppingCart.join(",")}`
-    );
-
-    const totalPrice = productsResponse.data.reduce(
-      (acc: any, cur: any) => acc + cur.price,
-      0
-    );
-
-    if (userResponse.data.budget < totalPrice) {
-      throw new Error(" Your budget is not enough to cover the total cost");
+    if (user.shoppingCart.length === 0) {
+      throw new Error("Your shopping cart is empty");
     }
 
-    const order = await OrderService.createNewOrder({
-      totalPrice,
-      buyer,
-      products: productsResponse.data.map((product: any) => product._id),
-    });
+    const productsResponse: any = await axios.get(
+      `${process.env.PRODUCT_SERVICE_URL}/products`,
+      { params: { productIds: user.shoppingCart.join(",") } }
+    );
+
+    if (paymentMethod === "MB_MONEY") {
+      const totalPrice = productsResponse.data.reduce(
+        (acc: any, cur: any) => acc + cur.price,
+        0
+      );
+
+      if (user.budget < totalPrice) {
+        throw new Error(" Your budget is not enough to cover the total cost");
+      }
+
+      user.budget = user.budget - totalPrice;
+    }
+
+    const orderNumber = Math.floor(Math.random() * 1000000);
+
+    const orderItems = productsResponse.data.map((product: any) => ({
+      buyer: user._id,
+      product: product._id,
+      price: product.price,
+      orderNumber,
+      shippingAddress,
+      paymentMethod,
+    }));
+
+    await OrderService.createNewOrder(orderItems);
 
     await axios.put(`${process.env.USER_SERVICE_URL}/users/${buyer}`, {
       fields: {
         shoppingCart: [],
-        budget: userResponse.data.budget - totalPrice,
+        budget: user.budget,
       },
     });
-    return order;
+    return true;
   } catch (error) {
     throw new Error(error as string);
   }
@@ -47,11 +65,11 @@ const createNewOrder = async ({ buyer }: ControllerCreateNewOrderInput) => {
 
 const updateOrderStatusByOrderId = async ({
   orderId,
-  status,
+  fields,
 }: ControllerUpdateOrderStatusByOrderIdInput) => {
   return await OrderService.updateOrderStatusByOrderId({
     orderId,
-    status,
+    fields,
   });
 };
 

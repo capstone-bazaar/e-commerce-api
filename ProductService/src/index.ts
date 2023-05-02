@@ -38,8 +38,10 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   await server.start();
-  app.use("/", express.urlencoded({ extended: true }), router);
+
   app.use(express.json());
+  app.use("/", express.urlencoded({ extended: true }), router);
+
   app.use(
     expressMiddleware(server, {
       context: ({ req }: { req: any }) => {

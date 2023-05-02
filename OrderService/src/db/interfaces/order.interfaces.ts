@@ -7,11 +7,14 @@ enum ORDER_STATUSES {
 }
 
 interface OrderSchemaInterface {
+  paymentMethod: string;
   buyer: Types.ObjectId;
-  products: Types.ObjectId[];
-  totalPrice: number;
+  product: Types.ObjectId;
+  price: number;
   status: ORDER_STATUSES;
-  orderId: string;
+  orderNumber: number;
+  trackingNumber: string;
+  shippingAddress: string;
 }
 
 export { ORDER_STATUSES, OrderSchemaInterface };

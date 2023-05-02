@@ -5,7 +5,7 @@ extend schema
   )
 
 type Mutation {
-  giveOrder: Boolean
+  giveOrder(shippingAddress: String, paymentMethod: String): Boolean
   updateOrder(orderId: ID, status: String): Order
 }
 
@@ -13,8 +13,11 @@ type Order @key(fields: "id") {
   id: ID
   buyer: User
   orderId: ID
-  totalPrice: Int
+  orderNumber: String
+  price: Int
   status: String
+  shippingAddress: String
+  paymentMethod: String
 }
 
 extend type User @key(fields: "id") {

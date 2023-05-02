@@ -12,8 +12,14 @@ const orderSchema = new Schema<OrderSchemaInterface>(
       required: true,
       ref: "User",
     },
-    products: [{ type: mongoose.Schema.Types.ObjectId }],
-    totalPrice: Number,
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
+    },
+    trackingNumber: String,
+    shippingAddress: String,
+    price: Number,
     status: {
       type: String,
       enum: [
@@ -23,7 +29,8 @@ const orderSchema = new Schema<OrderSchemaInterface>(
       ],
       default: ORDER_STATUSES.PENDING,
     },
-    orderId: String,
+    orderNumber: Number,
+    paymentMethod: String,
   },
   {
     timestamps: true,
