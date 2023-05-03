@@ -13,8 +13,7 @@ type Query {
 
 type Mutation {
   addProduct(fields: ProductInput): Product
-  createComment(fields: CommentInput): Comment
-  addCommentById(fields: AddCommentInput): Comment
+  addComment(fields: AddCommentInput): Comment
   deleteCommentById(fields: DeleteCommentInput): Comment
   updateProductById(fields: UpdateProductInput): Product
   deleteProductById(fields: DeleteProductInput): Product
@@ -54,15 +53,11 @@ input ProductInput {
   seller: ID
   imageURLs: [String]
 }
-input CommentInput {
-  userID: String
-  comment: String
-  rate: Int
-}
+
 input AddCommentInput {
-  userID: String
   productID: String
   comment: String
+  rate: Int
 }
 input DeleteCommentInput {
   id: String

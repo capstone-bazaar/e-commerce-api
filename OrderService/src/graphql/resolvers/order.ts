@@ -17,6 +17,14 @@ const resolvers = {
   },
   Order: {
     __resolveReference() {},
+    product(parent: any) {
+      return { id: parent.product };
+    },
+  },
+  User: {
+    async orders(user: any) {
+      return OrtderController.findOrdersByUserId({ id: user.id });
+    },
   },
 };
 

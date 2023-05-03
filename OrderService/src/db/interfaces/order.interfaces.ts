@@ -1,9 +1,10 @@
 import { Types } from "mongoose";
 
 enum ORDER_STATUSES {
-  PENDING = "PENDING",
-  COMPLETED = "COMPLETED",
+  DELIVERED = "DELIVERED",
+  IN_TRANSIT = "IN_TRANSIT",
   CANCELED = "CANCELED",
+  PREPARING = "PREPARING",
 }
 
 interface OrderSchemaInterface {

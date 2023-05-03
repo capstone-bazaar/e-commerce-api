@@ -23,11 +23,12 @@ const orderSchema = new Schema<OrderSchemaInterface>(
     status: {
       type: String,
       enum: [
-        ORDER_STATUSES.PENDING,
-        ORDER_STATUSES.COMPLETED,
+        ORDER_STATUSES.PREPARING,
+        ORDER_STATUSES.DELIVERED,
+        ORDER_STATUSES.IN_TRANSIT,
         ORDER_STATUSES.CANCELED,
       ],
-      default: ORDER_STATUSES.PENDING,
+      default: ORDER_STATUSES.PREPARING,
     },
     orderNumber: Number,
     paymentMethod: String,

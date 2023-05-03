@@ -7,6 +7,7 @@ export interface ControllerAddCommentProductById {
   userID: string;
   productID: string;
   comment: string;
+  rate: number;
 }
 export interface ControllerDeleteCommentProductById {
   id: string;

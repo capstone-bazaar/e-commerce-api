@@ -77,4 +77,13 @@ const findOrderById = async ({ id }: { id: string }) => {
   return await OrderService.findOrderById({ id });
 };
 
-export default { createNewOrder, updateOrderStatusByOrderId, findOrderById };
+const findOrdersByUserId = async ({ id }: { id: string }) => {
+  return await OrderService.findOrdersByUserId({ id });
+};
+
+export default {
+  createNewOrder,
+  updateOrderStatusByOrderId,
+  findOrderById,
+  findOrdersByUserId,
+};

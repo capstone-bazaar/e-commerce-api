@@ -20,4 +20,13 @@ const findOrderById = async ({ id }: { id: string }) => {
   return await OrderModel.find({ _id: new mongoose.Types.ObjectId(id) });
 };
 
-export default { createNewOrder, updateOrderStatusByOrderId, findOrderById };
+const findOrdersByUserId = async ({ id }: { id: string }) => {
+  return await OrderModel.find({ buyer: new mongoose.Types.ObjectId(id) });
+};
+
+export default {
+  createNewOrder,
+  updateOrderStatusByOrderId,
+  findOrderById,
+  findOrdersByUserId,
+};

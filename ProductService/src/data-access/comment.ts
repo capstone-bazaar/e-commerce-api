@@ -20,16 +20,21 @@ const createComment = ({
   return comments.save();
 };
 
-const addCommentById = async ({
+const addComment = async ({
   userID,
   productID,
   comment,
+  rate,
 }: DataAccessAddCommentByID) => {
   return await ProductModel.updateOne(
     { _id: new mongoose.Types.ObjectId(productID) },
     {
       $push: {
-        comments: { userID: new mongoose.Types.ObjectId(userID), comment },
+        comments: {
+          userID: new mongoose.Types.ObjectId(userID),
+          comment,
+          rate,
+        },
       },
     }
   );
@@ -51,4 +56,4 @@ const deleteCommentById = async ({
     }
   );
 };
-export default { createComment, addCommentById, deleteCommentById };
+export default { createComment, addComment, deleteCommentById };
