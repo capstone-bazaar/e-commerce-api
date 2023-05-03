@@ -52,15 +52,16 @@ const resolvers = {
         rate,
       });
     },
-    async addCommentById(_: any, args: any, ctx: any) {
+    async addComment(_: any, args: any, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
-      const { userID, productID, comment } = args.fields;
-      return await CommentController.addCommentById({
-        userID,
+      const { productID, comment, rate } = args.fields;
+      return await CommentController.addComment({
+        userID: ctx.id,
         productID,
         comment,
+        rate,
       });
     },
     async deleteCommentById(_: any, args: any, ctx: any) {

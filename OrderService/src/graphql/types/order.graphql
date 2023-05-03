@@ -14,13 +14,20 @@ type Order @key(fields: "id") {
   buyer: User
   orderId: ID
   orderNumber: String
+  product: Product
   price: Int
   status: String
   shippingAddress: String
   paymentMethod: String
+  createdAt: String
+  trackingNumber: String
 }
 
 extend type User @key(fields: "id") {
   id: ID! @external
-  orders: Order
+  orders: [Order]
+}
+
+extend type Product @key(fields: "id") {
+  id: ID! @external
 }

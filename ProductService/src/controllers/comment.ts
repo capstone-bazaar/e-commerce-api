@@ -16,15 +16,17 @@ const createComment = async ({
     rate,
   });
 };
-const addCommentById = async ({
+const addComment = async ({
   userID,
   productID,
   comment,
+  rate,
 }: ControllerAddCommentProductById) => {
-  return await CommentServices.addCommentById({
+  return await CommentServices.addComment({
     userID,
     productID,
     comment,
+    rate,
   });
 };
 const deleteCommentById = async ({
@@ -38,6 +40,6 @@ const deleteCommentById = async ({
 };
 export default {
   createComment,
-  addCommentById,
+  addComment,
   deleteCommentById,
 };

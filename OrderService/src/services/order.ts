@@ -22,4 +22,13 @@ const findOrderById = async ({ id }: { id: string }) => {
   return await OrderDataAccess.findOrderById({ id });
 };
 
-export default { createNewOrder, updateOrderStatusByOrderId, findOrderById };
+const findOrdersByUserId = async ({ id }: { id: string }) => {
+  return await OrderDataAccess.findOrdersByUserId({ id });
+};
+
+export default {
+  createNewOrder,
+  updateOrderStatusByOrderId,
+  findOrderById,
+  findOrdersByUserId,
+};
