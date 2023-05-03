@@ -59,12 +59,7 @@ const resolvers = {
 
       return await UserController.updateUserById({
         id,
-        fullName,
-        phone,
-        avatarURL,
-        password,
-        email,
-        address,
+        fields: { fullName, phone, avatarURL, password, email, address },
       });
     },
     async deleteUser(_: any, args: { id: string }, ctx: any) {
@@ -82,6 +77,30 @@ const resolvers = {
       } catch (error) {
         return false;
       }
+    },
+    async addProductToShoppingCart(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+      const updatedUser = UserController.addProductToShoppingCartByProductId({
+        userId: ctx.id,
+        productId: args.productId,
+      });
+
+      return !updatedUser;
+    },
+    async removeProductFromShoppingCart(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+
+      const updatedUser =
+        UserController.removeProductFromShoppingCartByProductId({
+          userId: ctx.id,
+          productId: args.productId,
+        });
+
+      return !!updatedUser;
     },
     async uploadUserPhoto(_: any, { photo }: { photo: any }, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
@@ -128,6 +147,17 @@ const resolvers = {
   User: {
     async __resolveReference(user: any) {
       return await UserController.findUserById({ id: user.id });
+    },
+    shoppingCart(product: any) {
+      let cartList: { __typename: string; id: string }[] = [];
+      product.shoppingCart.forEach((prodId: any) =>
+        cartList.push({ __typename: "Product", id: prodId })
+      );
+
+      return cartList;
+    },
+    password() {
+      return "Not allowed";
     },
   },
 };

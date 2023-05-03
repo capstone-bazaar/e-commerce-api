@@ -6,6 +6,8 @@ import {
   ControllerLoginUserInput,
   ControllerUpdateUserById,
   ControllerUpdateUserAvatarByIdInput,
+  ControllerAddProductToShoppingCartByProductIdInput,
+  ControllerRemoveProductFromShoppingCartByProductIdInput,
 } from "./interfaces/user.interfaces";
 import UserService from "../services/user";
 import bcrypt from "bcrypt";
@@ -28,8 +30,6 @@ const createUser = async ({
     email,
     address,
   });
-
-  console.log(user);
 
   if (user) {
     return jwt.sign(
@@ -79,23 +79,10 @@ const findUserById = async ({ id }: ControllerFindUserByIdInput) => {
   return await UserService.findUserById({ id });
 };
 
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: ControllerUpdateUserById) => {
+const updateUserById = async ({ id, fields }: ControllerUpdateUserById) => {
   return await UserService.updateUserById({
     id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
+    fields,
   });
 };
 
@@ -126,7 +113,29 @@ const verifyUserByVerificationId = async ({
   return await UserService.verifyUserByVerificationId({ verificationID, id });
 };
 
+const addProductToShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: ControllerAddProductToShoppingCartByProductIdInput) => {
+  return await UserService.addProductToShoppingCartByProductId({
+    userId,
+    productId,
+  });
+};
+
+const removeProductFromShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: ControllerRemoveProductFromShoppingCartByProductIdInput) => {
+  return await UserService.removeProductFromShoppingCartByProductId({
+    userId,
+    productId,
+  });
+};
+
 export default {
+  addProductToShoppingCartByProductId,
+  removeProductFromShoppingCartByProductId,
   updateUserAvatarById,
   verifyUserByVerificationId,
   createUser,

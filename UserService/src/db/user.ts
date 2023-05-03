@@ -1,6 +1,14 @@
-import { UserSchemaInterface } from "./interfaces/user.interfaces";
+import {
+  AddressSchemaInterface,
+  UserSchemaInterface,
+} from "./interfaces/user.interfaces";
 import mongoose from "mongoose";
 const { Schema, model } = mongoose;
+
+const addressSchema = new Schema<AddressSchemaInterface>({
+  address: String,
+  title: String,
+});
 
 const userSchema = new Schema<UserSchemaInterface>(
   {
@@ -10,9 +18,11 @@ const userSchema = new Schema<UserSchemaInterface>(
     avatarURL: String,
     password: String,
     email: String,
-    address: String,
+    addresses: { type: [addressSchema], default: [] },
     verificationID: String,
     isVerified: Boolean,
+    shoppingCart: [Schema.Types.ObjectId],
+    budget: Number,
   },
   {
     timestamps: true,

@@ -25,7 +25,7 @@ const startServer = async () => {
       supergraphSdl: new IntrospectAndCompose({
         subgraphs: [
           { name: "userService", url: process.env.USER_SERVICE_URL },
-          // { name: "orderService", url: process.env.PAYMENT_SERVICE_URL },
+          { name: "orderService", url: process.env.PAYMENT_SERVICE_URL },
           { name: "productService", url: process.env.PRODUCT_SERVICE_URL },
         ],
       }),

@@ -4,6 +4,8 @@ import {
   DataAccessFindUserByIdInput,
   DataAccessUpdateUserById,
   DataAccessUpdateUserAvatarByIdInput,
+  DataAccessAddProductToShoppingCartByProductIdInput,
+  DataAccessRemoveProductFromShoppingCartByProductIdInput,
 } from "./interfaces/user.interfaces";
 import UserModel from "../db/user";
 import { v4 as uuidv4 } from "uuid";
@@ -51,24 +53,11 @@ const verifyUserByVerificationId = async ({
 const findUser = async ({ email }: { email: string }) => {
   return await UserModel.findOne({ email });
 };
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: DataAccessUpdateUserById) => {
+const updateUserById = async ({ id, fields }: DataAccessUpdateUserById) => {
   return await UserModel.findByIdAndUpdate(
     { _id: id },
     {
-      fullName,
-      phone,
-      avatarURL,
-      password,
-      email,
-      address,
+      ...fields,
     },
     { new: true }
   );
@@ -89,8 +78,30 @@ const updateUserAvatarById = async ({
   return await UserModel.updateOne({ _id: userId }, { avatarURL });
 };
 
+const addProductToShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: DataAccessAddProductToShoppingCartByProductIdInput) => {
+  return await UserModel.updateOne(
+    { _id: userId },
+    { $push: { shoppingCart: productId } }
+  );
+};
+
+const removeProductFromShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: DataAccessRemoveProductFromShoppingCartByProductIdInput) => {
+  return await UserModel.updateOne(
+    { _id: userId },
+    { $pull: { shoppingCart: productId } }
+  );
+};
+
 export default {
+  addProductToShoppingCartByProductId,
   updateUserAvatarById,
+  removeProductFromShoppingCartByProductId,
   verifyUserByVerificationId,
   createUser,
   findUserById,

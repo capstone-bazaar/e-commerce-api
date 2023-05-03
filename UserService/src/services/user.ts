@@ -7,6 +7,8 @@ import {
   ServiceFindUserByIdInput,
   ServiceUpdateUserById,
   ServiceUpdateUserAvatarByIdInput,
+  ServiceAddProductToShoppingCartByProductIdInput,
+  ServiceRemoveProductFromShoppingCartByProductIdInput,
 } from "./interfaces/user.interfaces";
 const createUser = async ({
   fullName,
@@ -86,23 +88,10 @@ const verifyUserByVerificationId = async ({
   });
 };
 
-const updateUserById = async ({
-  id,
-  fullName,
-  phone,
-  avatarURL,
-  password,
-  email,
-  address,
-}: ServiceUpdateUserById) => {
+const updateUserById = async ({ id, fields }: ServiceUpdateUserById) => {
   return await UserDataAccess.updateUserById({
     id,
-    fullName,
-    phone,
-    avatarURL,
-    password,
-    email,
-    address,
+    fields,
   });
 };
 const deleteUserById = async ({ id }: ServiceDeleteUserById) => {
@@ -121,7 +110,29 @@ const updateUserAvatarById = async ({
   return await UserDataAccess.updateUserAvatarById({ userId, avatarURL });
 };
 
+const addProductToShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: ServiceAddProductToShoppingCartByProductIdInput) => {
+  return await UserDataAccess.addProductToShoppingCartByProductId({
+    userId,
+    productId,
+  });
+};
+
+const removeProductFromShoppingCartByProductId = async ({
+  userId,
+  productId,
+}: ServiceRemoveProductFromShoppingCartByProductIdInput) => {
+  return await UserDataAccess.removeProductFromShoppingCartByProductId({
+    userId,
+    productId,
+  });
+};
+
 export default {
+  removeProductFromShoppingCartByProductId,
+  addProductToShoppingCartByProductId,
   updateUserAvatarById,
   verifyUserByVerificationId,
   createUser,

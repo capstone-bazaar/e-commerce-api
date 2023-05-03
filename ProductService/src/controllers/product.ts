@@ -65,8 +65,8 @@ const findProductById = async ({ productID }: ControllerFindProductById) => {
     productID,
   });
 };
-const findAllProducts = async () => {
-  return await ProductServices.findAllProducts();
+const findAllProducts = async ({ products }: ControllerFindAllProducts) => {
+  return await ProductServices.findAllProducts({ products });
 };
 const deleteProductById = async ({
   productID,

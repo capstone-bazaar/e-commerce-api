@@ -8,7 +8,7 @@ type Query {
   allProducts: [Product]
   product: Product
   findProductById(productID: String): Product
-  findAllProducts: [Product]
+  findAllProducts(products: [ID]): [Product]
 }
 
 type Mutation {
@@ -28,7 +28,7 @@ type Comment {
   createdAt: String
 }
 
-type Product {
+type Product @key(fields: "id") {
   id: ID
   price: Int
   currency: String
@@ -40,6 +40,11 @@ type Product {
   comments: [Comment]
   createdAt: String
   updatedAt: String
+}
+
+extend type Order @key(fields: "id") {
+  id: ID! @external
+  products: [Product]
 }
 
 input ProductInput {

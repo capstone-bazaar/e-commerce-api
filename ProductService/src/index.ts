@@ -2,8 +2,12 @@ import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import gql from "graphql-tag";
 import { resolvers } from "./graphql/resolvers/product";
-import { startStandaloneServer } from "@apollo/server/standalone";
+
+import { expressMiddleware } from "@apollo/server/express4";
 import { readFileSync } from "fs";
+import express from "express";
+
+const app = express();
 const mongoose = require("mongoose");
 const typeDefs = gql(
   readFileSync(`${__dirname}/graphql/types/product.graphql`).toString("utf-8")
@@ -11,6 +15,7 @@ const typeDefs = gql(
 
 import { DB_URI } from "../database-config";
 import { createAmqpConnection } from "./connections/rabbitmq-connection";
+import { router } from "./routes/product";
 
 require("dotenv").config();
 
@@ -32,16 +37,23 @@ const startUserServiceServer = async () => {
   await createAmqpConnection();
   await createDatabaseConnection();
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4002 },
-    context: async ({ req }: { req: any }) => {
-      const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+  await server.start();
 
-      return user;
-    },
+  app.use(express.json());
+  app.use("/", express.urlencoded({ extended: true }), router);
+
+  app.use(
+    expressMiddleware(server, {
+      context: ({ req }: { req: any }) => {
+        const user = req.headers.user ? JSON.parse(req.headers.user) : null;
+        return user;
+      },
+    })
+  );
+
+  app.listen({ port: 4002 }, () => {
+    console.log(`🚀 Server ready at http://localhost:4002/`);
   });
-
-  console.log(`🚀 Product Service: Server ready at ${url}`);
 };
 
 startUserServiceServer();

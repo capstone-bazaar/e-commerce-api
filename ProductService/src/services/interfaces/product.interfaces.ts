@@ -27,7 +27,9 @@ export interface ServiceAddProductById {
 export interface ServiceFindProductById {
   productID: string;
 }
-export interface ServiceFindAllProductById {}
+export interface ServiceFindAllProducts {
+  products?: string[];
+}
 export interface ServiceDeleteProductById {
   productID: string;
 }
