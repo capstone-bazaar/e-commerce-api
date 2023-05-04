@@ -13,19 +13,20 @@ const ObjectId = Types.ObjectId;
 
 const createProduct = ({
   price,
-  currency,
   stockCount,
   seller,
   imageURLs,
-  comments,
+  description,
+  title,
 }: DataAccessCreateProductInput) => {
   const product = new ProductModel({
     price,
-    currency,
+    description,
+    title,
+    currency: "$",
     stockCount,
     seller: new ObjectId(seller),
     imageURLs,
-    comments,
   });
   return product.save();
 };
@@ -46,23 +47,7 @@ const updateProductById = async ({
     imageURLs,
   });
 };
-const addProduct = async ({
-  userID,
-  price,
-  currency,
-  stockCount,
-  seller,
-  imageURLs,
-}: DataAccessAddProductById) => {
-  return await ProductModel.create({
-    userID,
-    price,
-    currency,
-    stockCount,
-    seller,
-    imageURLs,
-  });
-};
+
 const findProductById = async ({ productID }: DataAccessFindProductById) => {
   return await ProductModel.findOne({
     _id: productID,
@@ -84,7 +69,6 @@ const deleteProductById = async ({
 export default {
   createProduct,
   updateProductById,
-  addProduct,
   findProductById,
   findAllProducts,
   deleteProductById,

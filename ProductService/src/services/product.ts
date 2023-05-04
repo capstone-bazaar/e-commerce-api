@@ -1,28 +1,26 @@
 import {
   ServiceCreateProductInput,
-  ServiceAddProductById,
   ServiceDeleteProductById,
   ServiceFindProductById,
   ServiceUpdateProductById,
-  ServiceFindAllProducts,
 } from "./interfaces/product.interfaces";
 import ProductDataAccess from "../data-access/product";
 
 const createProduct = async ({
   price,
-  currency,
   stockCount,
   seller,
   imageURLs,
-  comments,
+  description,
+  title,
 }: ServiceCreateProductInput) => {
   return await ProductDataAccess.createProduct({
     price,
-    currency,
     stockCount,
     seller,
     imageURLs,
-    comments,
+    description,
+    title,
   });
 };
 
@@ -43,23 +41,7 @@ const updateProductById = async ({
     imageURLs,
   });
 };
-const addProduct = async ({
-  userID,
-  price,
-  currency,
-  stockCount,
-  seller,
-  imageURLs,
-}: ServiceAddProductById) => {
-  return await ProductDataAccess.addProduct({
-    userID,
-    price,
-    currency,
-    stockCount,
-    seller,
-    imageURLs,
-  });
-};
+
 const findProductById = async ({ productID }: ServiceFindProductById) => {
   return await ProductDataAccess.findProductById({
     productID,
@@ -76,7 +58,6 @@ const deleteProductById = async ({ productID }: ServiceDeleteProductById) => {
 export default {
   createProduct,
   updateProductById,
-  addProduct,
   findProductById,
   findAllProducts,
   deleteProductById,

@@ -9,20 +9,20 @@ import {
 import ProductServices from "../services/product";
 
 const createProduct = async ({
-  price,
-  currency,
-  stockCount,
   seller,
+  price,
+  stockCount,
+  description,
+  title,
   imageURLs,
-  comments,
 }: ControllerCreateProductInput) => {
   return await ProductServices.createProduct({
     price,
-    currency,
-    stockCount,
     seller,
+    stockCount,
+    description,
+    title,
     imageURLs,
-    comments,
   });
 };
 
@@ -43,23 +43,7 @@ const updateProductById = async ({
     imageURLs,
   });
 };
-const addProduct = async ({
-  userID,
-  price,
-  currency,
-  stockCount,
-  seller,
-  imageURLs,
-}: ControllerAddProductById) => {
-  return await ProductServices.addProduct({
-    userID,
-    price,
-    currency,
-    stockCount,
-    seller,
-    imageURLs,
-  });
-};
+
 const findProductById = async ({ productID }: ControllerFindProductById) => {
   return await ProductServices.findProductById({
     productID,
@@ -78,7 +62,6 @@ const deleteProductById = async ({
 export default {
   createProduct,
   updateProductById,
-  addProduct,
   findProductById,
   findAllProducts,
   deleteProductById,

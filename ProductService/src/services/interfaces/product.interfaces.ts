@@ -1,11 +1,10 @@
 export interface ServiceCreateProductInput {
   price: number;
-  currency: string;
   stockCount: number;
   seller: string;
-  orderedBy?: string;
   imageURLs: string[];
-  comments: string;
+  description: string;
+  title: string;
 }
 export interface ServiceUpdateProductById {
   userID: string;

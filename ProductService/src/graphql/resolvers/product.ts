@@ -1,5 +1,7 @@
 import ProductController from "../../controllers/product";
 import CommentController from "../../controllers/comment";
+import { signURL, uploadToStorage } from "../../helpers/image-upload";
+import { nanoid } from "nanoid";
 
 const resolvers = {
   Query: {
@@ -29,16 +31,30 @@ const resolvers = {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
-      const { price, currency, stockCount, seller, imageURLs, comments } =
-        args.fields;
+
+      const { price, stockCount, images, title, description } = args.fields;
+
+      let imageURLs: any[] = [];
+      if (images && images.length > 0) {
+        imageURLs = await Promise.all(
+          images.map(async (image: string) => {
+            const imageURL: any = await uploadToStorage({
+              filename: `${ctx.id}-${nanoid(5)}`,
+              file: image,
+            });
+
+            return imageURL.Location;
+          })
+        );
+      }
 
       return await ProductController.createProduct({
+        seller: ctx.id,
         price,
-        currency,
+        description,
+        title,
         stockCount,
-        seller,
         imageURLs,
-        comments,
       });
     },
     async createComment(_: any, args: any, ctx: any) {
@@ -112,6 +128,11 @@ const resolvers = {
 
     seller(product: any) {
       return { id: product.seller };
+    },
+    imageURLs(parent: any) {
+      return parent.imageURLs.map((url: string) => {
+        return signURL(url);
+      });
     },
   },
   User: {
