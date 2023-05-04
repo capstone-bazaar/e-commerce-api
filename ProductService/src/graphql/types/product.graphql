@@ -79,4 +79,5 @@ input DeleteProductInput {
 extend type User @key(fields: "id") {
   id: ID! @external
   purchasedProducts: [Product]
+  products: [Product]
 }
