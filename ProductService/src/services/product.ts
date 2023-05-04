@@ -65,8 +65,8 @@ const findProductById = async ({ productID }: ServiceFindProductById) => {
     productID,
   });
 };
-const findAllProducts = async ({ products }: ServiceFindAllProducts) => {
-  return await ProductDataAccess.findAllProducts({ products });
+const findAllProducts = async (fields: any) => {
+  return await ProductDataAccess.findAllProducts(fields);
 };
 const deleteProductById = async ({ productID }: ServiceDeleteProductById) => {
   return await ProductDataAccess.deleteProductById({

@@ -118,6 +118,9 @@ const resolvers = {
     async purchasedProducts(parent: any, args: any, ctx: any) {
       return;
     },
+    async products(user: any) {
+      return await ProductController.findAllProducts({ seller: user.id });
+    },
   },
   Order: {
     products(ids: any) {
