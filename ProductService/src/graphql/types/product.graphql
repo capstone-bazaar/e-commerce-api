@@ -10,7 +10,7 @@ type Query {
   allProducts: [Product]
   product: Product
   findProductById(productID: String): Product
-  findAllProducts(products: [ID]): [Product]
+  findAllProducts(products: [ID], filters: FilterInput): [Product]
 }
 
 type Mutation {
@@ -56,6 +56,10 @@ input ProductInput {
   stockCount: Int
   seller: ID
   images: [Upload]
+}
+
+input FilterInput {
+  byTitle: String
 }
 
 input AddCommentInput {

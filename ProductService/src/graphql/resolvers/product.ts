@@ -21,8 +21,10 @@ const resolvers = {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
+
       return await ProductController.findAllProducts({
         products: args.products,
+        filters: args.filters,
       });
     },
   },
