@@ -4,6 +4,8 @@ extend schema
     import: ["@key", "@external"]
   )
 
+scalar Upload
+
 type Query {
   allProducts: [Product]
   product: Product
@@ -47,11 +49,13 @@ extend type Order @key(fields: "id") {
 }
 
 input ProductInput {
+  title: String
+  description: String
   price: Int
   currency: String
   stockCount: Int
   seller: ID
-  imageURLs: [String]
+  images: [Upload]
 }
 
 input AddCommentInput {

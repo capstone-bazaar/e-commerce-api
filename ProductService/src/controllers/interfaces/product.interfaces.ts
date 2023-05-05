@@ -1,11 +1,10 @@
 export interface ControllerCreateProductInput {
   price: number;
-  currency: string;
+  description:string,
+  title: string,
   stockCount: number;
   seller: string;
-  orderedBy?: string;
-  imageURLs: [string];
-  comments: string;
+  imageURLs: string[];
 }
 export interface ControllerUpdateProductById {
   userID: string;
@@ -18,9 +17,9 @@ export interface ControllerUpdateProductById {
 export interface ControllerAddProductById {
   userID: string;
   price: number;
-  currency: string;
   stockCount: number;
-  seller: string;
+  description: string;
+  title: string;
   imageURLs: [string];
 }
 
