@@ -54,9 +54,21 @@ const findProductById = async ({ productID }: DataAccessFindProductById) => {
   });
 };
 const findAllProducts = async (fields: any) => {
+  if (fields.filters) {
+    if (fields.filters.byTitle && fields.filters.byTitle !== "") {
+      return await ProductModel.find({
+        title: { $regex: fields.filters.byTitle, $options: "i" },
+      });
+    }
+  }
+
   if (fields.products && fields.products.length > 0) {
     return await ProductModel.find({ _id: { $in: fields.products } });
   }
+
+  delete fields.filters;
+  delete fields.products;
+
   return await ProductModel.find(fields);
 };
 const deleteProductById = async ({
