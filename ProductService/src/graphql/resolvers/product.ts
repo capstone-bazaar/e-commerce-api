@@ -1,5 +1,7 @@
 import ProductController from "../../controllers/product";
 import CommentController from "../../controllers/comment";
+import CategoryController from "../../controllers/category";
+import CategoryDataAccess from "../../data-access/category";
 import { signURL, uploadToStorage } from "../../helpers/image-upload";
 import { nanoid } from "nanoid";
 
@@ -7,6 +9,9 @@ const resolvers = {
   Query: {
     product() {
       return;
+    },
+    async getAllCategories() {
+      return await CategoryController.getAllCategories();
     },
     async findProductById(_: any, args: any, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
@@ -126,6 +131,10 @@ const resolvers = {
   Product: {
     async __resolveReference(product: any) {
       return await ProductController.findProductById({ productID: product.id });
+    },
+
+    async category(parent: any) {
+      return await CategoryDataAccess.findCategoryById({ id: parent.category });
     },
 
     seller(product: any) {

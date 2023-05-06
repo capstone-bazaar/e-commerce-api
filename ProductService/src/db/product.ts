@@ -10,6 +10,10 @@ const ProductSchema = new Schema<ProductSchemaInterface>(
     currency: String,
     stockCount: Number,
     description: String,
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+    },
     seller: {
       type: Schema.Types.ObjectId,
       ref: "User",

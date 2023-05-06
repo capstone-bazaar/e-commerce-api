@@ -11,6 +11,7 @@ type Query {
   product: Product
   findProductById(productID: String): Product
   findAllProducts(products: [ID], filters: FilterInput): [Product]
+  getAllCategories: [Category]
 }
 
 type Mutation {
@@ -29,6 +30,11 @@ type Comment {
   createdAt: String
 }
 
+type Category {
+  id: ID
+  title: String
+}
+
 type Product @key(fields: "id") {
   id: ID
   price: Int
@@ -37,6 +43,7 @@ type Product @key(fields: "id") {
   seller: User
   description: String
   title: String
+  category: Category
   imageURLs: [String]
   comments: [Comment]
   createdAt: String
