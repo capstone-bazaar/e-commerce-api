@@ -11,4 +11,5 @@ export interface ProductSchemaInterface {
   orderedBy: string;
   imageURLs: string[];
   comments: CommentSchemaInterface;
+  category: Types.ObjectId;
 }
