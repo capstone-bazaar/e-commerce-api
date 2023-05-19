@@ -1,4 +1,3 @@
-import { model } from "mongoose";
 import UserController from "../../controllers/user";
 import { IUser } from "../../types";
 import { uploadToStorage } from "../../helpers/image-upload";
@@ -76,6 +75,24 @@ const resolvers = {
         return true;
       } catch (error) {
         return false;
+      }
+    },
+
+    async uploadMoney(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+
+      const user = await UserController.findUserById({ id: ctx.id });
+
+      try {
+        await UserController.updateUserById({
+          id: ctx.id,
+          fields: { budget: args.amount + (user?.budget || Number(0)) },
+        });
+        return true;
+      } catch (error) {
+        throw new Error("Something went wrong!");
       }
     },
     async addProductToShoppingCart(_: any, args: any, ctx: any) {

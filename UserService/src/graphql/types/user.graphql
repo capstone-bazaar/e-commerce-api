@@ -27,6 +27,7 @@ type Mutation {
   verifyUser(verificationID: String, id: String): Boolean
   addProductToShoppingCart(productId: String): Boolean
   removeProductFromShoppingCart(productId: String): Boolean
+  uploadMoney(amount: Int): Boolean
 }
 
 type User @key(fields: "id") {
@@ -35,6 +36,7 @@ type User @key(fields: "id") {
   phone: String
   avatarURL: String
   password: String
+  budget: Int
   email: String
   addresses: [Address]
   createdAt: String
