@@ -1,7 +1,7 @@
 export interface ControllerCreateProductInput {
   price: number;
-  description:string,
-  title: string,
+  description: string;
+  title: string;
   stockCount: number;
   seller: string;
   imageURLs: string[];
