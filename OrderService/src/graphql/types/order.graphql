@@ -6,7 +6,7 @@ extend schema
 
 type Mutation {
   giveOrder(shippingAddress: String, paymentMethod: String): Boolean
-  updateOrder(orderId: ID, status: String): Order
+  updateOrder(orderID: ID, status: String, trackingNumber: String): Order
 }
 
 type Order @key(fields: "id") {
@@ -26,6 +26,7 @@ type Order @key(fields: "id") {
 extend type User @key(fields: "id") {
   id: ID! @external
   orders: [Order]
+  unshippedOrders: [Order]
 }
 
 extend type Product @key(fields: "id") {

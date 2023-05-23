@@ -81,9 +81,19 @@ const findOrdersByUserId = async ({ id }: { id: string }) => {
   return await OrderService.findOrdersByUserId({ id });
 };
 
+const findUnshippedOrdersByUserId = async ({ id }: { id: string }) => {
+  return await OrderService.findUnshippedOrdersByUserId({ id });
+};
+
+const updateOrderById = async ({ id, fields }: { id: string; fields: any }) => {
+  return await OrderService.updateOrderById({ id, fields });
+};
+
 export default {
+  findUnshippedOrdersByUserId,
   createNewOrder,
   updateOrderStatusByOrderId,
   findOrderById,
   findOrdersByUserId,
+  updateOrderById
 };
