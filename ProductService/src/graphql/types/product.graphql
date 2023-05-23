@@ -48,6 +48,7 @@ type Product @key(fields: "id") {
   comments: [Comment]
   createdAt: String
   updatedAt: String
+  avgRate: Float
 }
 
 extend type Order @key(fields: "id") {

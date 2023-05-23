@@ -25,7 +25,9 @@ const createProduct = async ({
     imageURLs,
   });
 };
-
+const calculateAvgRatingbyProductID = async ({ id }: { id: string }) => {
+  return await ProductServices.calculateAvgRatingbyProductID({ id });
+};
 const updateProductById = async ({
   userID,
   price,
@@ -65,4 +67,5 @@ export default {
   findProductById,
   findAllProducts,
   deleteProductById,
+  calculateAvgRatingbyProductID,
 };
