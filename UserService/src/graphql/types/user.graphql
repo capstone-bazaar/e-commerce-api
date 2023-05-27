@@ -9,6 +9,7 @@ scalar Upload
 type Query {
   me: User
   findAllUsers: [User]
+  getUser(id: String): User
 }
 
 type Mutation {
