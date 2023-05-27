@@ -34,7 +34,23 @@ const updateOrderById = async ({ id, fields }: { id: string; fields: any }) => {
   return await OrderDataAccess.updateOrderById({ id, fields });
 };
 
+const findOrderByTrackingNumber = async ({ trackingNumber }: { trackingNumber: string }) => {
+  return await OrderDataAccess.findOrderByTrackingNumber({ trackingNumber });
+};
+
+const updateOrderByTrackingNumber = async ({
+  trackingNumber,
+  fields,
+}: {
+  trackingNumber: string;
+  fields: any;
+}) => {
+  return await OrderDataAccess.updateOrderByTrackingNumber({ trackingNumber, fields });
+};
+
 export default {
+  updateOrderByTrackingNumber,
+  findOrderByTrackingNumber,
   findUnshippedOrdersByUserId,
   createNewOrder,
   updateOrderStatusByOrderId,

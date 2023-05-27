@@ -27,6 +27,7 @@ const orderSchema = new Schema<OrderSchemaInterface>(
         ORDER_STATUSES.DELIVERED,
         ORDER_STATUSES.IN_TRANSIT,
         ORDER_STATUSES.CANCELED,
+        ORDER_STATUSES.NOT_DELIVERED,
       ],
       default: ORDER_STATUSES.PREPARING,
     },

@@ -5,6 +5,7 @@ enum ORDER_STATUSES {
   IN_TRANSIT = "IN_TRANSIT",
   CANCELED = "CANCELED",
   PREPARING = "PREPARING",
+  NOT_DELIVERED = "NOT_DELIVERED",
 }
 
 interface OrderSchemaInterface {
