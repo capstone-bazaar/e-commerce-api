@@ -11,6 +11,13 @@ const resolvers = {
       }
       return await UserController.findUserById({ id: ctx.id });
     },
+    async getUser(_: any, args: any, ctx: any) {
+      if (!ctx || !ctx.id || !ctx.isAuth) {
+        throw new Error("You have to login!");
+      }
+
+      return await UserController.findUserById({ id: args.id });
+    },
     async findAllUsers(_: any, __: any, ctx: any) {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
