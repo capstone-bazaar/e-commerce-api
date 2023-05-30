@@ -33,6 +33,7 @@ type Comment {
 type Category {
   id: ID
   title: String
+  imageURL: String
 }
 
 type Product @key(fields: "id") {
@@ -63,11 +64,13 @@ input ProductInput {
   currency: String
   stockCount: Int
   seller: ID
+  category: ID
   images: [Upload]
 }
 
 input FilterInput {
   byTitle: String
+  byCategory: String
 }
 
 input AddCommentInput {

@@ -40,7 +40,8 @@ const resolvers = {
         throw new Error("You have to login!");
       }
 
-      const { price, stockCount, images, title, description } = args.fields;
+      const { price, stockCount, images, title, description, category } =
+        args.fields;
 
       let imageURLs: any[] = [];
       if (images && images.length > 0) {
@@ -63,6 +64,7 @@ const resolvers = {
         title,
         stockCount,
         imageURLs,
+        category,
       });
     },
     async createComment(_: any, args: any, ctx: any) {

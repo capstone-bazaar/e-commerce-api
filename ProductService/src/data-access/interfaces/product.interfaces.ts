@@ -5,6 +5,7 @@ export interface DataAccessCreateProductInput {
   imageURLs: string[];
   description: string;
   title: string;
+  category: string;
 }
 export interface DataAccessUpdateProductById {
   userID: string;

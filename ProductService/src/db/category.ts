@@ -5,6 +5,7 @@ const { Schema, model } = mongoose;
 const CategorySchema = new Schema<CategorySchemaInterface>(
   {
     title: String,
+    imageURL: String,
   },
   {
     timestamps: true,

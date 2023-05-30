@@ -15,6 +15,7 @@ const createProduct = async ({
   description,
   title,
   imageURLs,
+  category,
 }: ControllerCreateProductInput) => {
   return await ProductServices.createProduct({
     price,
@@ -22,6 +23,7 @@ const createProduct = async ({
     stockCount,
     description,
     title,
+    category,
     imageURLs,
   });
 };
