@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { resolvers } from "./graphql/resolvers/order";
 import express from "express";
 import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
 
 import { readFileSync } from "fs";
 const mongoose = require("mongoose");
@@ -14,6 +15,7 @@ const app = express();
 
 import { DB_URI } from "../database-config";
 import { createAmqpConnection } from "./connections/rabbitmq-connection";
+import { router } from "./routes/order";
 
 require("dotenv").config();
 
@@ -35,8 +37,13 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   await server.start();
-
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
   app.use(express.json());
+  app.use("/", express.urlencoded({ extended: true }), router);
   app.use(
     expressMiddleware(server, {
       context: ({ req }: { req: any }) => {
