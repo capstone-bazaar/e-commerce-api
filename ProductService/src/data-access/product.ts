@@ -40,6 +40,7 @@ const createProduct = ({
   imageURLs,
   description,
   title,
+  category,
 }: DataAccessCreateProductInput) => {
   const product = new ProductModel({
     price,
@@ -49,6 +50,7 @@ const createProduct = ({
     stockCount,
     seller: new ObjectId(seller),
     imageURLs,
+    category: new ObjectId(category),
   });
   return product.save();
 };
@@ -80,6 +82,11 @@ const findAllProducts = async (fields: any) => {
     if (fields.filters.byTitle && fields.filters.byTitle !== "") {
       return await ProductModel.find({
         title: { $regex: fields.filters.byTitle, $options: "i" },
+      });
+    }
+    if (fields.filters.byCategory && fields.filters.byCategory !== "") {
+      return await ProductModel.find({
+        category: new ObjectId(fields.filters.byCategory),
       });
     }
   }

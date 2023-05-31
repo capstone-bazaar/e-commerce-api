@@ -5,6 +5,7 @@ export interface ControllerCreateProductInput {
   stockCount: number;
   seller: string;
   imageURLs: string[];
+  category: string;
 }
 export interface ControllerUpdateProductById {
   userID: string;

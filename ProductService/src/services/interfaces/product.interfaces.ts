@@ -5,6 +5,7 @@ export interface ServiceCreateProductInput {
   imageURLs: string[];
   description: string;
   title: string;
+  category: string;
 }
 export interface ServiceUpdateProductById {
   userID: string;

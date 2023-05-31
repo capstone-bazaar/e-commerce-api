@@ -13,6 +13,7 @@ const createProduct = async ({
   imageURLs,
   description,
   title,
+  category,
 }: ServiceCreateProductInput) => {
   return await ProductDataAccess.createProduct({
     price,
@@ -21,6 +22,7 @@ const createProduct = async ({
     imageURLs,
     description,
     title,
+    category,
   });
 };
 
