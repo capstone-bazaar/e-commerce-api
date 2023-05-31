@@ -61,13 +61,12 @@ type Register {
   user: String
 }
 input UserInput {
-  id: ID
   fullName: String
   phone: String
-  avatarURL: String
+  image: String
   password: String
   email: String
-  address: [String]
+  addresses: [String]
 }
 
 extend type Product @key(fields: "id") {
