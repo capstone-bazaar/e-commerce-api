@@ -4,6 +4,7 @@ import CategoryController from "../../controllers/category";
 import CategoryDataAccess from "../../data-access/category";
 import { signURL, uploadToStorage } from "../../helpers/image-upload";
 import { nanoid } from "nanoid";
+import { Aggregate } from "mongoose";
 
 const resolvers = {
   Query: {
@@ -136,7 +137,9 @@ const resolvers = {
     async category(parent: any) {
       return await CategoryDataAccess.findCategoryById({ id: parent.category });
     },
-
+    async avgRate(parent: any) {
+      return ProductController.calculateAvgRatingbyProductID({ id: parent.id });
+    },
     seller(product: any) {
       return { id: product.seller };
     },

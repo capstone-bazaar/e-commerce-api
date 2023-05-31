@@ -55,10 +55,14 @@ const deleteProductById = async ({ productID }: ServiceDeleteProductById) => {
     productID,
   });
 };
+const calculateAvgRatingbyProductID = async ({ id }: { id: string }) => {
+  return await ProductDataAccess.calculateAvgRatingbyProductID({ id });
+};
 export default {
   createProduct,
   updateProductById,
   findProductById,
   findAllProducts,
   deleteProductById,
+  calculateAvgRatingbyProductID,
 };

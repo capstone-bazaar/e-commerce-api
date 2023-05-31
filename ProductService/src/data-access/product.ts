@@ -11,6 +11,28 @@ import mongoose, { Types } from "mongoose";
 
 const ObjectId = Types.ObjectId;
 
+const calculateAvgRatingbyProductID = async ({ id }: { id: string }) => {
+  const product = await ProductModel.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(id),
+      },
+    },
+    {
+      $addFields: {
+        avgRate: { $avg: "$comments.rate" },
+      },
+    },
+    {
+      $project: {
+        avgRate: 1,
+      },
+    },
+  ]);
+
+  return product[0].avgRate || Number(0);
+};
+
 const createProduct = ({
   price,
   stockCount,
@@ -84,4 +106,5 @@ export default {
   findProductById,
   findAllProducts,
   deleteProductById,
+  calculateAvgRatingbyProductID,
 };
