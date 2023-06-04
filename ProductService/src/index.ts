@@ -6,6 +6,7 @@ import { resolvers } from "./graphql/resolvers/product";
 import { expressMiddleware } from "@apollo/server/express4";
 import { readFileSync } from "fs";
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const mongoose = require("mongoose");
@@ -38,7 +39,11 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   await server.start();
-
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
   app.use(express.json({ limit: "50mb" }));
   app.use("/", express.urlencoded({ extended: true }), router);
 
