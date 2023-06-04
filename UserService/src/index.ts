@@ -5,6 +5,7 @@ import gql from "graphql-tag";
 import { resolvers } from "./graphql/resolvers/user";
 import express from "express";
 import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
 
 const app = express();
 import { readFileSync } from "fs";
@@ -37,7 +38,11 @@ const startUserServiceServer = async () => {
   await createDatabaseConnection();
 
   await server.start();
-
+  app.use(
+    cors({
+      origin: "*",
+    })
+  );
   app.use(express.json({ limit: "50mb" }));
   app.use("/", express.urlencoded({ extended: true }), router);
   app.use(
