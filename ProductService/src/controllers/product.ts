@@ -31,20 +31,22 @@ const calculateAvgRatingbyProductID = async ({ id }: { id: string }) => {
   return await ProductServices.calculateAvgRatingbyProductID({ id });
 };
 const updateProductById = async ({
+  productID,
   userID,
+  category,
+  title,
+  description,
   price,
-  currency,
   stockCount,
-  seller,
-  imageURLs,
 }: ControllerUpdateProductById) => {
   return await ProductServices.updateProductById({
+    productID,
     userID,
     price,
-    currency,
     stockCount,
-    seller,
-    imageURLs,
+    category,
+    title,
+    description,
   });
 };
 

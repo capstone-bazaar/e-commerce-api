@@ -4,7 +4,6 @@ import CategoryController from "../../controllers/category";
 import CategoryDataAccess from "../../data-access/category";
 import { signURL, uploadToStorage } from "../../helpers/image-upload";
 import { nanoid } from "nanoid";
-import { Aggregate } from "mongoose";
 
 const resolvers = {
   Query: {
@@ -104,15 +103,16 @@ const resolvers = {
       if (!ctx || !ctx.id || !ctx.isAuth) {
         throw new Error("You have to login!");
       }
-      const { userID, price, currency, stockCount, seller, imageURLs } =
+      const { price, stockCount, category, title, description, productID } =
         args.fields;
       return await ProductController.updateProductById({
-        userID,
+        userID: ctx.id,
+        productID,
         price,
-        currency,
         stockCount,
-        seller,
-        imageURLs,
+        category,
+        title,
+        description,
       });
     },
 

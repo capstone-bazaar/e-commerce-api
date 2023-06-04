@@ -8,12 +8,13 @@ export interface ServiceCreateProductInput {
   category: string;
 }
 export interface ServiceUpdateProductById {
+  productID: string;
   userID: string;
   price: number;
-  currency: string;
+  category: string;
+  title: string;
+  description: string;
   stockCount: number;
-  seller: string;
-  imageURLs: string[];
 }
 export interface ServiceAddProductById {
   userID: string;

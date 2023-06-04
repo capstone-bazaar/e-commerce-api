@@ -8,12 +8,13 @@ export interface DataAccessCreateProductInput {
   category: string;
 }
 export interface DataAccessUpdateProductById {
+  productID: string;
   userID: string;
   price: number;
-  currency: string;
+  category: string;
+  title: string;
+  description: string;
   stockCount: number;
-  seller: string;
-  imageURLs: string[];
 }
 export interface DataAccessAddProductById {
   userID: string;
