@@ -38,7 +38,7 @@ type User @key(fields: "id") {
   avatarURL: String
   password: String
   budget: Int
-  
+
   email: String
   addresses: [Address]
   createdAt: String
@@ -61,13 +61,17 @@ type Register {
   user: String
 }
 input UserInput {
-  id: ID
   fullName: String
   phone: String
-  avatarURL: String
+  image: String
   password: String
   email: String
-  address: [String]
+  addresses: [AddressInput]
+}
+
+input AddressInput {
+  title: String
+  address: String
 }
 
 extend type Product @key(fields: "id") {

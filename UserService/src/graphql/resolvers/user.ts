@@ -2,6 +2,7 @@ import UserController from "../../controllers/user";
 import { IUser } from "../../types";
 import { uploadToStorage } from "../../helpers/image-upload";
 import { nanoid } from "nanoid";
+import { signURL } from "../../helpers/image-upload";
 
 const resolvers = {
   Query: {
@@ -45,13 +46,11 @@ const resolvers = {
       _: any,
       args: {
         fields: {
-          id: string;
           fullName: string;
           phone: string;
-          avatarURL: string;
-          password: string;
+          image: string;
           email: string;
-          address: string;
+          addresses: string[];
         };
       },
       ctx: any
@@ -60,12 +59,21 @@ const resolvers = {
         throw new Error("You have to login!");
       }
 
-      const { id, fullName, phone, avatarURL, password, email, address } =
-        args.fields;
+      const { fullName, phone, image, email, addresses } = args.fields;
+
+      let avatarURL;
+      if (image) {
+        const savedImage: any = await uploadToStorage({
+          filename: `${ctx.id}-${nanoid(5)}`,
+          file: image,
+        });
+
+        avatarURL = savedImage.Location;
+      }
 
       return await UserController.updateUserById({
-        id,
-        fields: { fullName, phone, avatarURL, password, email, address },
+        id: ctx.id,
+        fields: { fullName, phone, avatarURL, email, addresses },
       });
     },
     async deleteUser(_: any, args: { id: string }, ctx: any) {
@@ -179,6 +187,9 @@ const resolvers = {
       );
 
       return cartList;
+    },
+    avatarURL(parent: any) {
+      return signURL(parent.avatarURL);
     },
     password() {
       return "Not allowed";

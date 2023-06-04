@@ -1,5 +1,7 @@
 import express from "express";
 import OrderController from "../controllers/order";
+import { ORDER_STATUSES } from "../db/interfaces/order.interfaces";
+import axios from "axios";
 
 const router = express.Router();
 
@@ -26,6 +28,29 @@ router.put("/tracking/:trackingNumber", async (req, res) => {
 
   if (order) {
     try {
+      if (req.body.status === ORDER_STATUSES.DELIVERED) {
+        const productGetResponse = await axios.get(
+          `${
+            process.env.PRODUCT_SERVICE_URL
+          }/products/${order.product.toString()}`
+        );
+
+        const product = productGetResponse.data;
+
+        const userGetResponse = await axios.get(
+          `${process.env.USER_SERVICE_URL}/users/${product.seller.toString()}`
+        );
+
+        const user = userGetResponse.data;
+
+        await axios.put(
+          `${process.env.USER_SERVICE_URL}/users/${product.seller.toString()}`,
+          {
+            fields: { budget: (user?.budget || 0) + order.price },
+          }
+        );
+      }
+
       await OrderController.updateOrderByTrackingNumber({
         trackingNumber,
         fields: { status: req.body.status },
