@@ -28,19 +28,21 @@ const createProduct = async ({
 
 const updateProductById = async ({
   userID,
+  productID,
+  category,
+  title,
+  description,
   price,
-  currency,
   stockCount,
-  seller,
-  imageURLs,
 }: ServiceUpdateProductById) => {
   return await ProductDataAccess.updateProductById({
     userID,
+    productID,
     price,
-    currency,
     stockCount,
-    seller,
-    imageURLs,
+    category,
+    title,
+    description,
   });
 };
 

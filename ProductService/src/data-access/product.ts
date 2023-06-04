@@ -55,21 +55,27 @@ const createProduct = ({
   return product.save();
 };
 const updateProductById = async ({
+  productID,
   userID,
   price,
-  currency,
+  category,
+  title,
+  description,
   stockCount,
-  seller,
-  imageURLs,
 }: DataAccessUpdateProductById) => {
-  return await ProductModel.updateOne({
-    userID,
-    price,
-    currency,
-    stockCount,
-    seller,
-    imageURLs,
-  });
+  return await ProductModel.updateOne(
+    {
+      _id: new ObjectId(productID),
+      seller: new ObjectId(userID),
+    },
+    {
+      category,
+      title,
+      description,
+      price,
+      stockCount,
+    }
+  );
 };
 
 const findProductById = async ({ productID }: DataAccessFindProductById) => {

@@ -8,12 +8,13 @@ export interface ControllerCreateProductInput {
   category: string;
 }
 export interface ControllerUpdateProductById {
+  productID: string;
   userID: string;
   price: number;
-  currency: string;
+  category: string;
+  title: string;
+  description: string;
   stockCount: number;
-  seller: string;
-  imageURLs: [string];
 }
 export interface ControllerAddProductById {
   userID: string;

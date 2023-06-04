@@ -16,14 +16,14 @@ type Mutation {
   addUser(fields: UserInput): User
   updateUser(fields: UserInput): User
   deleteUser(id: String): Boolean
-  login(email: String, password: String): String
+  login(email: String, password: String): Login
   register(
     fullName: String
     phone: String
     avatarURL: String
     password: String
     email: String
-  ): String
+  ): Register
   uploadUserPhoto(photo: Upload): Boolean
   verifyUser(verificationID: String, id: String): Boolean
   addProductToShoppingCart(productId: String): Boolean
@@ -38,6 +38,7 @@ type User @key(fields: "id") {
   avatarURL: String
   password: String
   budget: Int
+  
   email: String
   addresses: [Address]
   createdAt: String
@@ -51,6 +52,14 @@ type Address {
   title: String
 }
 
+type Login {
+  token: String
+  user: String
+}
+type Register {
+  token: String
+  user: String
+}
 input UserInput {
   id: ID
   fullName: String

@@ -83,13 +83,12 @@ input DeleteCommentInput {
   productID: String
 }
 input UpdateProductInput {
-  userID: String
-  price: Int
-  currency: String
-  stockCount: Int
-  seller: String
-  imageURLs: [String]
   productID: String
+  price: Int
+  stockCount: Int
+  title: String
+  description: String
+  category: String
 }
 input DeleteProductInput {
   productID: String
