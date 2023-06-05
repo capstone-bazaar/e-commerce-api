@@ -31,7 +31,7 @@ const createNewOrder = async ({
         0
       );
 
-      if (user.budget < totalPrice) {
+      if (user.budget < totalPrice || !user.budget) {
         throw new Error(" Your budget is not enough to cover the total cost");
       }
 
@@ -77,7 +77,11 @@ const findOrderById = async ({ id }: { id: string }) => {
   return await OrderService.findOrderById({ id });
 };
 
-const findOrderByTrackingNumber = async ({ trackingNumber }: { trackingNumber: string }) => {
+const findOrderByTrackingNumber = async ({
+  trackingNumber,
+}: {
+  trackingNumber: string;
+}) => {
   return await OrderService.findOrderByTrackingNumber({ trackingNumber });
 };
 
@@ -100,7 +104,10 @@ const updateOrderByTrackingNumber = async ({
   trackingNumber: string;
   fields: any;
 }) => {
-  return await OrderService.updateOrderByTrackingNumber({ trackingNumber, fields });
+  return await OrderService.updateOrderByTrackingNumber({
+    trackingNumber,
+    fields,
+  });
 };
 
 export default {
