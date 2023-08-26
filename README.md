@@ -34,6 +34,8 @@ Our e-commerce application is designed to provide a scalable and modular solutio
 ## 2. Architecture
 
 The application follows a microservices architecture, promoting loose coupling and independent deployment of services. It is structured around the layered architecture pattern, ensuring a clear separation of concerns. The front-end communicates with the back-end services through GraphQL APIs provided by Apollo Federation.
+<p align="center"><img width="764" alt="Screenshot 2023-08-26 at 13 36 30" src="https://github.com/capstone-bazaar/e-commerce-api/assets/20026295/5c413937-6e5e-4490-8317-70456ced12c7"></p>
+
 
 ## 3. Services
 
