@@ -5,19 +5,32 @@ Welcome to the E-Commerce Microservices Application! This document serves as a g
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [Architecture](#2-architecture)
-3. [Services](#3-services)
-4. [Getting Started](#4-getting-started)
-5. [Configuration](#5-configuration)
-6. [Running the Application](#6-running-the-application)
-7. [GraphQL Federation](#7-graphql-federation)
-8. [License](#8-license)
+2. [Technologies](#2-technologies)
+3. [Architecture](#3-architecture)
+4. [Services](#4-services)
+5. [Getting Started](#5-getting-started)
+6. [Configuration](#6-configuration)
+7. [Running the Application](#7-running-the-application)
+8. [GraphQL Federation](#8-graphql-federation)
+9. [License](#9-license)
 
 ## 1. Introduction
 
 Our e-commerce application is designed to provide a scalable and modular solution for online retail. It employs microservices to break down complex functionalities into smaller, manageable services. Each service is responsible for a specific domain, such as User Management, Product Catalog, Order Processing, and Mail Notifications.
 
-### Technologies
+## 2. Technologies
+
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Amazon S3**: Object storage service offered by Amazon Web Services.
+- **Apollo GraphQL**: A comprehensive toolset for building GraphQL applications.
+- **Mailgun**: Email automation and delivery platform.
+- **dotenv**: Zero-dependency module for loading environment variables.
+- **Express.js**: Web application framework for Node.js.
+- **MongoDB**: NoSQL database program.
+- **Git**: Distributed version control system.
+- **GitHub**: Web-based platform for version control and collaboration.
+- **GraphQL**: A query language for APIs.
+- **RabbitMQ**: Open-source message broker software.
 
 <img height="32" width="32" src="https://cdn.simpleicons.org/typescript/3178C6" />&nbsp;
 <img height="32" width="32" src="https://cdn.simpleicons.org/amazons3/569A31" />&nbsp;
@@ -31,13 +44,14 @@ Our e-commerce application is designed to provide a scalable and modular solutio
 <img height="32" width="32" src="https://cdn.simpleicons.org/graphql/E10098" />&nbsp;
 <img height="32" width="32" src="https://cdn.simpleicons.org/rabbitmq/FF6600" />&nbsp;
 
-## 2. Architecture
+
+## 3. Architecture
 
 The application follows a microservices architecture, promoting loose coupling and independent deployment of services. It is structured around the layered architecture pattern, ensuring a clear separation of concerns. The front-end communicates with the back-end services through GraphQL APIs provided by Apollo Federation.
 <p align="center"><img width="764" alt="Screenshot 2023-08-26 at 13 36 30" src="https://github.com/capstone-bazaar/e-commerce-api/assets/20026295/5c413937-6e5e-4490-8317-70456ced12c7"></p>
 
 
-## 3. Services
+## 4. Services
 
 Our application consists of the following microservices:
 
@@ -48,7 +62,7 @@ Our application consists of the following microservices:
 
 Each service is self-contained and communicates with other services as needed.
 
-## 4. Getting Started
+## 5. Getting Started
 
 To set up the application locally, follow these steps:
 
@@ -60,22 +74,22 @@ To set up the application locally, follow these steps:
 6. Install [RabbitMQ](https://www.rabbitmq.com/).
 7. Start each service (see [Running the Application](#6-running-the-application)).
 
-## 5. Configuration
+## 6. Configuration
 
 Each service has its own configuration requirements. Create `.env.development` file for each service. Refer to the respective service's `.env.example` file for configuration details. Common configurations include database connections, API keys, and service ports.
 
-## 6. Running the Application
+## 7. Running the Application
 
 To run the application locally:
 
 1. Start services using `npm run start-services:dev` in the root directory.
 2. Start the gateway in a separate terminal using `npm run start-gateway:dev`.
 
-## 7. GraphQL Federation
+## 8. GraphQL Federation
 
 We utilize Apollo GraphQL Federation to unify the GraphQL schema across services. This enables us to compose a holistic API while maintaining the autonomy of individual services. The federated schema is available at the designated gateway service.
 
-## 8. License
+## 9. License
 
 Our application is licensed under the [MIT License](https://github.com/capstone-bazaar/e-commerce-api/blob/master/LICENSE). Make sure to review the terms before using or contributing to the project.
 
